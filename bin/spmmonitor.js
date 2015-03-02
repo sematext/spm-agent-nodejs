@@ -20,8 +20,7 @@ try {
     console.log('e.g. spmmonitor ./server/app.js')
   }
   var scriptName = process.argv[2]
-  var SpmAgent = require('spmagent')
-  var agent = new SpmAgent()
+  var agent = require('spm-agent-nodejs')
   //Remove Arguments for Runner Script, to give started process a clean ENV
   process.argv.splice(1, 1);
   process.argv.splice(2, 1);

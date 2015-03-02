@@ -1,0 +1,58 @@
+{
+  "name": "spm-agent-nodejs",
+  "version": "1.0.0",
+  "description": "Node.js monitoring agent for SPM by Sematext",
+  "main": "lib/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test/test.js",
+    "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sematext/spm-agent-nodejs.git"
+  },
+  "keywords": [
+    "SPM",
+    "APM",
+    "application performance monitoring",
+    "Sematext",
+    "performance monitoring",
+    "monitoring",
+    "alerting",
+    "anomaly detection",
+    "heartbeat",
+    "metrics",
+    "custom metrics",
+    "devops",
+    "operations",
+    "dashboards",
+    "profiling",
+    "memwatch",
+    "gc-profiler",
+    "strongloop-agent",
+    "logging"
+  ],
+  "author": "Sematext Group, Inc.",
+  "license": "Copyright (c) Sematext Group, Inc.",
+  "bugs": {
+    "url": "https://github.com/sematext/spm-agent-nodejs/issues"
+  },
+  "homepage": "http://www.sematext.com",
+  "dependencies": {
+    "spm-agent": "^1.0.14",
+    "flat": "^1.5.0",
+    "gc-profiler": "^1.1.1",
+    "measured": "^0.1.6",
+    "moment": "^2.9.0",
+    "nedb": "^1.1.1",
+    "rc": "^0.5.5"
+  },
+  "devDependencies": {
+    "doxx": "^1.2.4",
+    "mocha": "^2.1.0",
+    "request": "^2.51.0"
+  }
+}

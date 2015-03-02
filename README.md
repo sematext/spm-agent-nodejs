@@ -41,16 +41,16 @@ locations commandline args or ENV variables. We recommend to use a file in curre
         -----------------
         {
             "tokens": {
-                "spm": 'YOUR_APP_TOKEN'
+                "spm": "YOUR_APP_TOKEN"
             },
             // needs to be changed if you run local SPM Server  e.g.:
             spmSenderBulkInsertUrl: 'https://spm-receiver.my-domain.com:443/receiver/v1/_bulk',
             "logger": {
-                "dir": './spmlogs',
-                "console": false,
-                "maxfiles": '3',
-                "maxsize":  '1048576',
-                "filename": 'spm'
+                "dir": "./spmlogs",
+                "console": "false",
+                "maxfiles": "3",
+                "maxsize":  "1048576",
+                "filename": "spm"
             }
         }
 

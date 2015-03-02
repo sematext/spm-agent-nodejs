@@ -76,7 +76,7 @@ Add this line at the begin of your source code / main script / app.js
 
 ```
 
-    var SpmAgent = new require ('spm-agent-nodejs')
+    var spmAgent = require ('spm-agent-nodejs')
 
 ```
 

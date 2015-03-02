@@ -86,7 +86,7 @@ You need to create one agent instance in each worker to collect metrics of maste
 
 1) Copy the helper script to the directory of your app
 
-    cp ./node_modules/spmagent/bin/spmmonitor.js .
+    cp ./node_modules/spm-agent-nodejs/bin/spmmonitor.js .
 
 
 2) Start your app using the monitor script

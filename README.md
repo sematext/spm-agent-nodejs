@@ -95,7 +95,7 @@ You need to create one agent instance in each worker to collect metrics of maste
 
 Please note you can pass your individual commandline arguments for your script as usual. SPM Monitor removes its own arguments from the list.
 
-# Monitoring activity and errors
+# Other SPM related packages
 
 Please check out [spm-metrics-js](https://www.npmjs.com/package/spm-metrics-js) to monitor any custom metric in your application.
 

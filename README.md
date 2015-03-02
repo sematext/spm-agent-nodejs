@@ -7,19 +7,19 @@ Following information is collected and transmitted to SPM (Cloud or On-Premises 
 
 - OS Metrics (CPU / Mem)
 - Process Memory
-- EventLoop Stats
-- Garbage Collector Stats
-- HTTP Server stats (requests, error rate, response times etc.)
+- EventLoop stats
+- Garbage Collector stats
+- HTTP server stats (requests, error rate, response times etc.)
   Working for all HTTP servers that use NodeJS http module including "connect" based frameworks like Express.js, Sails.js
   and others like Hapi.js, ...
 
-  The module is able to run in cluster mode (master/worker), then you need to create one agent instance in each worker.
-  OS Metrics are only collected in the Master process.
+  The module is able to run in cluster mode (master/worker).
 
 # Status
 
 This package is part of the release tests - please check our [blog](http://blog.sematext.com) for updates or
 contact us [npmjs@sematext.com](mailto:npmjs@sematext.com).
+
 Supported Node-Versions: Node >= 0.10, IO.js >= 1.2
 
 # Installation
@@ -32,7 +32,7 @@ Supported Node-Versions: Node >= 0.10, IO.js >= 1.2
 
 Get a free account and create a Node.js API token at [www.sematext.com](https://apps.sematext.com/users-web/register.do)
 
-#configuration
+# Configuration
 
 We use https://www.npmjs.com/package/rc for configuration. This means config parameters can be passed via several config
 locations commandline args or ENV variables. We recommend to use a file in current directory in ini or JSON format called
@@ -80,6 +80,8 @@ Add this line at the begin of your source code / main script / app.js
 
 ```
 
+You need to create one agent instance in each worker to collect metrics of master and worker processes. Operating system metrics are collected in the master process only.
+
 ##  Start existing applications in monitor mode without touching source
 
 1) Copy the helper script to the directory of your app
@@ -89,13 +91,13 @@ Add this line at the begin of your source code / main script / app.js
 
 2) Start your app using the monitor script
 
-    ./spmmonitor app.js
+    node ./spmmonitor.js app.js
 
 Please note you can pass your individual commandline arguments for your script as usual. SPM Monitor removes its own arguments from the list.
 
 # Monitoring activity and errors
 
-Please check out the already released package [spm-metrics-js](https://www.npmjs.com/package/spm-metrics-js) to monitor any custom metric in your application.
+Please check out [spm-metrics-js](https://www.npmjs.com/package/spm-metrics-js) to monitor any custom metric in your application.
 
 # LICENCE
 

@@ -141,6 +141,7 @@ describe("SPM for NodeJS tests", function () {
       } else if (stats.error > 0) {
         agent.removeListener('stats', checkMetrics)
         done('send errors in SPM')
+        agent.stop()
       } else {
         // if old metricsdb is in local dir we might get retransmit as first event
         // so we need to register again
@@ -170,10 +171,10 @@ describe("SPM for NodeJS tests", function () {
     agent.createAgent(elagent)
     setTimeout(function () {
       agent.setUrl('https://spm-receiver.sematext.com:443/receiver/v1/_bulk')
-    }, 3000)
+    }, 5000)
     var eventReceived = false
     agent.on('stats', function (stats) {
-      //console.log ('%d %d %d', stats.retransmit, stats.send, stats.error)
+      //console.log ('ret %d send %d failed %d', stats.retransmit, stats.send, stats.error)
       if (stats.retransmit > 0) {
         if (eventReceived)
           return
@@ -190,8 +191,6 @@ describe("SPM for NodeJS tests", function () {
     try {
       this.timeout(20000);
       config.collectionInterval = 200
-      config.logger.console = true
-      config.logger.level = 'debug'
       var njsAgent = require('../lib/index.js')
       var port = (process.env.NJS_TEST_PORT || 8095)
 
@@ -220,8 +219,6 @@ describe("SPM for NodeJS tests", function () {
         request.get('http://127.0.0.1:' + (port) + '/', function (err, res) {
           if (err)
             console.log('Error' + err.stack)
-          // else console.log(res.body)
-
         })
       }, 600)
     } catch (err) {

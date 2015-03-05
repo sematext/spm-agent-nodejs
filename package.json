@@ -1,6 +1,6 @@
 {
   "name": "spm-agent-nodejs",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node.js monitoring agent for SPM by Sematext",
   "main": "lib/index.js",
   "directories": {
@@ -32,7 +32,7 @@
     "profiling",
     "memwatch",
     "gc-profiler",
-    "strongloop-agent",
+    "agent",
     "logging"
   ],
   "author": "Sematext Group, Inc.",

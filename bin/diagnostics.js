@@ -10,30 +10,29 @@
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
 var fs = require("fs");
-var zip = require("node-native-zip");
+var AdmZip = require('adm-zip')
+var zip = new AdmZip()
 var config = require('spm-agent').Config
 var util = require ('util')
 var ls = require ('ls')
 var path = require ('path')
+var os = require ('os')
 
-config.environment = process.env
-fs.writeFileSync ( config.logger.dir + '/' + 'cfg-dump.txt', util.inspect (config).toString() )
-var archive = new zip();
+var systemInfo = {
+  operatingSystem: os.type() + ', ' + os.platform() + ', ' + os.release() + ', ' + os.arch(),
+  processVersions: process.versions,
+  processEnvironment: process.env
+}
+
+var cfgDumpFileName = os.tmpdir() + 'spm-cfg-dump.txt'
+fs.writeFileSync ( cfgDumpFileName, util.inspect (config).toString() + '\nSystem-Info:\n' + util.inspect (systemInfo) )
 var logfiles = ls (config.logger.dir + '/*' )
-var archFiles = []
-
+zip.addLocalFile(cfgDumpFileName)
+console.log ('Adding file ' + cfgDumpFileName)
 logfiles.forEach (function (f){
-  console.log ('Adding file ' + f.file + '(' + f.full +')')
-  archFiles.push ({name: f.file, path: f.full})
+  console.log ('Adding file ' + f.file )
+  zip.addLocalFile(f.full)
 })
-
-//archFiles.push ({name: path.basename(config.config) + path.extname (), path: path.dirname (config.config)})
-
-archive.addFiles(archFiles, function (err) {
-  if (err) return console.log("err while adding files", err);
-  var buff = archive.toBuffer()
-  //console.log (buff.toString())
-  fs.writeFileSync ("./spm-dignose.zip", buff)
-}, function (err) {
-   console.log(err);
-})
+zip.writeZip("spm-diagnose.zip")
+console.log ("Diagnostics file generated: spm-diagnose.zip")
+fs.unlink (cfgDumpFileName, function () {})

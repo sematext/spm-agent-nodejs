@@ -17,7 +17,24 @@ if (process.argv.length == 3){
 if (process.env.SPM_TOKEN)
 		spm_token = process.env.SPM_TOKEN
 
-var cfgFileContent = '[tokens]\n  spm = ' + spm_token
+var cfgLines = [
+  '# Please don\'t change this configuration',
+  '# Directory for buffered metrics',
+  'dbDir = ./spmdb',
+  ' ',
+  '# Application Token for SPM',
+  '[tokens]',
+  '  spm = ' + spm_token,
+  ' ',
+  '[logger]',
+  '  # log file directory default is ./spmlogs',
+  '  dir = ./spmlogs',
+  '  # silent = true means no creation of log files',
+  '  silent = false ',
+  '  # log level for output - debug, info, error, defaults to error to be quiet',
+  '  level = error '
+]
+var cfgFileContent = cfgLines.join ('\r\n')
 fs.writeFileSync ('.spmagentrc', cfgFileContent)
 console.log ('Create default config to file: ./.spmagentrc \n' + cfgFileContent)
 

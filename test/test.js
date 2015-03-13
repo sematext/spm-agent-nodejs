@@ -8,19 +8,11 @@
  * This source code is to be used exclusively by users and customers of Sematext.
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
-
-var assert = require("assert")
-
-var token = {spm: process.env.SPM_TOKEN, logsene: process.env.LOGSENE_TOKEN}
-var leak = [];
-
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 var config = require('spm-agent').Config
-var os = require('os')
 
-describe("SPM for NodeJS tests", function () {
-
-  it("OS Agent sends metrics", function (done) {
+describe('SPM for NodeJS tests', function () {
+  it('OS Agent sends metrics', function (done) {
     try {
       config.collectionInterval = 1000
       var OsAgent = require('../lib/osAgent.js')
@@ -35,10 +27,9 @@ describe("SPM for NodeJS tests", function () {
     } catch (err) {
       done(err)
     }
-
   })
 
-  it("GC Agent sends metrics", function (done) {
+  it('GC Agent sends metrics', function (done) {
     try {
       config.collectionInterval = 1000
       var GcAgent = require('../lib/gcAgent.js')
@@ -52,13 +43,11 @@ describe("SPM for NodeJS tests", function () {
     } catch (err) {
       done(err)
     }
-
   })
 
-
-  it("EventLoop Agent sends metrics", function (done) {
+  it('EventLoop Agent sends metrics', function (done) {
     try {
-      this.timeout(95000);
+      this.timeout(95000)
       config.collectionInterval = 1000
       var ElAgent = require('../lib/eventLoopAgent.js')
       var agent = new ElAgent()
@@ -74,8 +63,8 @@ describe("SPM for NodeJS tests", function () {
     }
   })
 
-  it("NJS - Wait for metrics of GC, eventLoop and OS monitor", function (done) {
-    this.timeout(15000);
+  it('NJS - Wait for metrics of GC, eventLoop and OS monitor', function (done) {
+    this.timeout(15000)
     config.collectionInterval = 300
     config.retransmitInterval = 600
     config.recoverInterval = 600
@@ -100,8 +89,8 @@ describe("SPM for NodeJS tests", function () {
 
   })
 
-  it("FAIL EXPECTED - Wait to fail with wrong SPM-Receiver URL", function (done) {
-    this.timeout(95000);
+  it('FAIL EXPECTED - Wait to fail with wrong SPM-Receiver URL', function (done) {
+    this.timeout(95000)
     config.collectionInterval = 300
     config.retransmitInterval = 600
     config.recoverInterval = 600
@@ -126,15 +115,15 @@ describe("SPM for NodeJS tests", function () {
 
   })
 
-  it("SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL", function (done) {
-    this.timeout(95000);
+  it('SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL', function (done) {
+    this.timeout(95000)
     var SpmAgent = require('spm-agent')
     var agent = new SpmAgent('https://spm-receiver.sematext.com:443/receiver/v1/_bulk')
     var ElAgent = require('../lib/eventLoopAgent.js')
     var elagent = new ElAgent()
     agent.createAgent(elagent)
     function checkMetrics (stats) {
-      //console.log (stats)
+      // console.log (stats)
       if (stats.send > 0) {
         agent.stop()
         done()
@@ -148,22 +137,20 @@ describe("SPM for NodeJS tests", function () {
         // console.log (stats)
         agent.once('stats', checkMetrics)
       }
-
     }
-
     agent.once('stats', checkMetrics)
 
   })
 
-  it("RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit", function (done) {
-    this.timeout(125000);
+  it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {
+    this.timeout(125000)
     config.collectionInterval = 500
     config.retransmitInterval = 500
     config.recoverInterval = 500
     config.transmitInterval = 500
     config.maxDataPoints = 1
     config.logger.console = false
-    //config.logger.level = 'debug'
+    // config.logger.level = 'debug'
     var SpmAgent = require('spm-agent')
     var agent = new SpmAgent('https://NOT_REACHABLE-spm-receiver.sematext.com:443/receiver/v1/_bulk')
     var ElAgent = require('../lib/eventLoopAgent.js')
@@ -174,10 +161,10 @@ describe("SPM for NodeJS tests", function () {
     }, 5000)
     var eventReceived = false
     agent.on('stats', function (stats) {
-      //console.log ('ret %d send %d failed %d', stats.retransmit, stats.send, stats.error)
+      // console.log ('ret %d send %d failed %d', stats.retransmit, stats.send, stats.error)
       if (stats.retransmit > 0) {
         if (eventReceived)
-          return
+        return
         else
           eventReceived = true
         done()
@@ -186,10 +173,9 @@ describe("SPM for NodeJS tests", function () {
 
   })
 
-
-  it("Generic HTTP Server Agent sends metrics", function (done) {
+  it('Generic HTTP Server Agent sends metrics', function (done) {
     try {
-      this.timeout(20000);
+      this.timeout(20000)
       config.collectionInterval = 200
       var njsAgent = require('../lib/index.js')
       var port = (process.env.NJS_TEST_PORT || 8095)
@@ -203,7 +189,7 @@ describe("SPM for NodeJS tests", function () {
           }).listen(port, '127.0.0.1')
           // console.log('Listening on ' + port)
           var checkMetric = function (metric) {
-            //console.log (metric)
+            // console.log (metric)
             if (metric.name === 'http')
               done()
           }
@@ -226,4 +212,3 @@ describe("SPM for NodeJS tests", function () {
     }
   })
 })
-

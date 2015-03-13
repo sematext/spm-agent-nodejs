@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-
 /*
  * @copyright Copyright (c) Sematext Group, Inc. - All Rights Reserved
  *
@@ -9,16 +8,16 @@
  * This source code is to be used exclusively by users and customers of Sematext.
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
-var fs = require ('fs')
-var spm_token = ""
-if (process.argv.length == 3){
+var fs = require('fs')
+var spm_token = ''
+if (process.argv.length === 3) {
   spm_token = process.argv[2]
 }
 if (process.env.SPM_TOKEN)
-		spm_token = process.env.SPM_TOKEN
+  spm_token = process.env.SPM_TOKEN
 
 var cfgLines = [
-  '# Please don\'t change this configuration',
+  "# Please don't change this configuration",
   '# Directory for buffered metrics',
   'dbDir = ./spmdb',
   ' ',
@@ -34,7 +33,6 @@ var cfgLines = [
   '  # log level for output - debug, info, error, defaults to error to be quiet',
   '  level = error '
 ]
-var cfgFileContent = cfgLines.join ('\r\n')
-fs.writeFileSync ('.spmagentrc', cfgFileContent)
-console.log ('Create default config to file: ./.spmagentrc \n' + cfgFileContent)
-
+var cfgFileContent = cfgLines.join('\r\n')
+fs.writeFileSync('.spmagentrc', cfgFileContent)
+console.log('Create default config to file: ./.spmagentrc \n' + cfgFileContent)

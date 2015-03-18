@@ -12,6 +12,7 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 var config = require('spm-agent').Config
 
 describe('SPM for NodeJS tests', function () {
+
   it('OS Agent sends metrics', function (done) {
     try {
       config.collectionInterval = 1000

@@ -43,16 +43,16 @@
   "homepage": "http://www.sematext.com",
   "dependencies": {
     "adm-zip": "^0.4.7",
-    "flat": "^1.5.0",
-    "gc-profiler": "^1.1.1",
+    "flat": "^1.5.1",
+    "gc-profiler": "^1.2.0",
     "ls": "^0.1.0",
-    "measured": "^0.1.6",
+    "measured": "^1.0.0",
     "moment": "^2.9.0",
     "spm-agent": "^1.0.25"
   },
   "devDependencies": {
-    "doxx": "^1.2.4",
-    "mocha": "^2.1.0",
-    "request": "^2.51.0"
+    "doxx": "^1.2.6",
+    "mocha": "^2.2.1",
+    "request": "^2.53.0"
   }
 }

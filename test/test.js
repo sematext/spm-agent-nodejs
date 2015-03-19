@@ -199,7 +199,6 @@ describe('SPM for NodeJS tests', function () {
           console.log('Error in HTTP Worker:' + ex.stack)
         }
       }
-
       httpTest()
       setTimeout(function () {
         var request = require('request')

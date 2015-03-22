@@ -9,16 +9,23 @@
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
 var fs = require('fs')
+var os = require ('os')
+
 var spm_token = ''
 if (process.argv.length === 3) {
   spm_token = process.argv[2]
 }
 if (process.env.SPM_TOKEN)
   spm_token = process.env.SPM_TOKEN
-
+var useLinuxAgent = 'false'
+if (os.platform() === 'linux')
+{
+  useLinuxAgent = 'true'
+}
 var cfgLines = [
   "# Please don't change this configuration",
   '# Directory for buffered metrics',
+  'useLinuxAgent='+useLinuxAgent,
   'dbDir = ./spmdb',
   ' ',
   '# Application Token for SPM',

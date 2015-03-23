@@ -48,7 +48,7 @@
     "ls": "^0.1.0",
     "measured": "^1.0.0",
     "moment": "^2.9.0",
-    "spm-agent": "^1.0.26",
+    "spm-agent": "^1.0.27",
     "which": "^1.0.9"
   },
   "devDependencies": {

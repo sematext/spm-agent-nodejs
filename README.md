@@ -79,7 +79,7 @@ Add this line at the begin of your source code / main script / app.js
 
 # Troubleshooting
 
-Please visit our [WIKI](https://sematext.atlassian.net/wiki/display/PUBSPM/SPM+for+NodeJS) for more information
+Please visit our [WIKI](https://sematext.atlassian.net/wiki/display/PUBSPM/SPM+for+Node.js) for more information
 
 # Other SPM related packages
 

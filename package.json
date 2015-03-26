@@ -1,6 +1,6 @@
 {
   "name": "spm-agent-nodejs",
-  "version": "1.0.31",
+  "version": "1.24.0",
   "description": "Node.js monitoring agent for SPM by Sematext",
   "main": "lib/index.js",
   "directories": {
@@ -48,7 +48,7 @@
     "ls": "^0.1.0",
     "measured": "^1.0.0",
     "moment": "^2.9.0",
-    "spm-agent": "^1.0.28",
+    "spm-agent": "^1.0.31",
     "which": "^1.0.9"
   },
   "devDependencies": {

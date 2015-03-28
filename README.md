@@ -1,5 +1,6 @@
 spm-agent-nodejs
 ================
+[![bitHound Score](https://www.bithound.io/github/sematext/spm-agent-nodejs/badges/score.svg)](https://www.bithound.io/github/sematext/spm-agent-nodejs/)
 
 [SPM performance monitoring by Sematext](http://www.sematext.com/spm) - this is the Node.js monitoring agent for SPM.
 
@@ -10,17 +11,17 @@ Following information is collected and transmitted to SPM (Cloud or On-Premises 
 - EventLoop stats
 - Garbage Collector stats
 - HTTP server stats (requests, error rate, response times etc.)
-  Working for all HTTP servers that use NodeJS http module including "connect" based frameworks like Express.js, Sails.js
+  Working for all HTTP servers that use Node.js http/https module including "connect" based frameworks like Express.js, Sails.js
   and others like Hapi.js, ...
 
-  The module is able to run in cluster mode (master/worker).
+  The module is able to run in cluster mode (master/worker). 
 
 # Status
 
 This package is part of the release tests - please check our [blog](http://blog.sematext.com) for updates or
 contact us [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
-Supported Node-Versions: Node >= 0.10, IO.js >= 1.2
+Supported Node-Versions: Node >= 0.10, io.js >= 1.2
 
 # Installation
 
@@ -70,10 +71,8 @@ Please note the use of double "_" for nested properties
 
 Add this line at the begin of your source code / main script / app.js
 
-```
-
+```js
     var spmAgent = require ('spm-agent-nodejs')
-
 ```
 
 

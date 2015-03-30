@@ -9,10 +9,9 @@
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
-var port = (process.env.NJS_TEST_PORT || 8095)
-var receiverUrl = 'http://localhost:' + port //
-//receiverUrl = 'https://spm-receiver.sematext.com:443/receiver/v1/_bulk'
 var config = require('spm-agent').Config
+var port = (process.env.NJS_TEST_PORT || 8095)
+var receiverUrl = 'http://localhost:' + port
 config.rcFlat.spmSenderBulkInsertUrl =  receiverUrl
 var server = null
 describe('SPM for NodeJS tests', function () {

@@ -18,10 +18,10 @@ Following information is collected and transmitted to SPM (Cloud or On-Premises 
 
 # Status
 
-This package is part of the release tests - please check our [blog](http://blog.sematext.com) for updates or
-contact us [npmjs@sematext.com](mailto:npmjs@sematext.com).
-
 Supported Node-Versions: Node >= 0.10, io.js >= 1.2
+
+Please check our [blog](http://blog.sematext.com/2015/03/30/nodejs-iojs-monitoring/) for more information or
+contact us [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
 # Installation
 

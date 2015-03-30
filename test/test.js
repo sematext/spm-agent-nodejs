@@ -9,13 +9,57 @@
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+var port = (process.env.NJS_TEST_PORT || 8095)
+var receiverUrl = 'http://localhost:' + port //
+//receiverUrl = 'https://spm-receiver.sematext.com:443/receiver/v1/_bulk'
 var config = require('spm-agent').Config
-
+config.rcFlat.spmSenderBulkInsertUrl =  receiverUrl
+var server = null
 describe('SPM for NodeJS tests', function () {
+
+  it('Generic HTTP Server Agent sends metrics', function (done) {
+    try {
+      this.timeout(10000)
+      config.collectionInterval = 500
+      var HttpAgent = require('../lib/httpServerAgent.js')
+      var njsAgent = new HttpAgent()
+      njsAgent.start()
+      var http = require('http')
+      server = http.createServer(function (req, res) {
+        res.writeHead(200, {'Content-Type': 'text/plain'})
+        res.end('{"code":"200"}\n')
+      }).listen(port, '127.0.0.1')
+
+      function httpTest (testDone) {
+        try {
+          var checkMetric = function (metric) {
+            if (metric.name === 'http')  {
+              done()
+            }
+          }
+          njsAgent.once('metric', checkMetric)
+        } catch (ex) {
+          console.error('Error in HTTP Worker:' + ex.stack)
+          done (ex)
+        }
+      }
+      httpTest()
+      setTimeout(function () {
+        var request = require('request')
+        request.get('http://127.0.0.1:' + (port) + '/', function (err, res) {
+          if (err)
+            console.log('Error' + err.stack)
+        })
+      }, 700)
+    } catch (err) {
+      console.error (err.stack)
+      done(err)
+    }
+  })
 
   it('OS Agent sends metrics', function (done) {
     try {
-      config.collectionInterval = 1000
+      this.timeout(10000)
       var OsAgent = require('../lib/osAgent.js')
       var agent = new OsAgent()
       agent.start()
@@ -32,7 +76,7 @@ describe('SPM for NodeJS tests', function () {
 
   it('GC Agent sends metrics', function (done) {
     try {
-      config.collectionInterval = 1000
+      this.timeout(10000)
       var GcAgent = require('../lib/gcAgent.js')
       var agent = new GcAgent()
       agent.start()
@@ -48,8 +92,7 @@ describe('SPM for NodeJS tests', function () {
 
   it('EventLoop Agent sends metrics', function (done) {
     try {
-      this.timeout(95000)
-      config.collectionInterval = 1000
+      this.timeout(10000)
       var ElAgent = require('../lib/eventLoopAgent.js')
       var agent = new ElAgent()
       agent.start()
@@ -65,10 +108,7 @@ describe('SPM for NodeJS tests', function () {
   })
 
   it('NJS - Wait for metrics of GC, eventLoop and OS monitor', function (done) {
-    this.timeout(15000)
-    config.collectionInterval = 300
-    config.retransmitInterval = 600
-    config.recoverInterval = 600
+    this.timeout(10000)
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'
@@ -78,27 +118,24 @@ describe('SPM for NodeJS tests', function () {
     function checkMetrics (metric) {
       metricTypes[metric.name] = 1
       var checksum = metricTypes.gc + metricTypes.eventloop + metricTypes.numWorkers
-      // console.log (metricTypes)
       if (checksum > 2) {
         NjsAgent.removeListener('metric', checkMetrics)
         done()
         NjsAgent.stop()
       }
     }
-
     NjsAgent.on('metric', checkMetrics)
 
   })
 
   it('FAIL EXPECTED - Wait to fail with wrong SPM-Receiver URL', function (done) {
-    this.timeout(95000)
-    config.collectionInterval = 300
-    config.retransmitInterval = 600
-    config.recoverInterval = 600
+    this.timeout(10000)
+    config.collectionInterval = 500
+    config.retransmitInterval = 1000
+    config.recoverInterval = 1000
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'
-
     var SpmAgent = require('spm-agent')
     var ElAgent = require('../lib/eventLoopAgent.js')
     var elagent = new ElAgent()
@@ -117,9 +154,9 @@ describe('SPM for NodeJS tests', function () {
   })
 
   it('SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL', function (done) {
-    this.timeout(95000)
+    this.timeout(10000)
     var SpmAgent = require('spm-agent')
-    var agent = new SpmAgent('https://spm-receiver.sematext.com:443/receiver/v1/_bulk')
+    var agent = new SpmAgent(receiverUrl)
     var ElAgent = require('../lib/eventLoopAgent.js')
     var elagent = new ElAgent()
     agent.createAgent(elagent)
@@ -144,22 +181,22 @@ describe('SPM for NodeJS tests', function () {
   })
 
   it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {
-    this.timeout(125000)
-    config.collectionInterval = 500
-    config.retransmitInterval = 500
-    config.recoverInterval = 500
-    config.transmitInterval = 500
+    this.timeout(30000)
+    config.collectionInterval = 1000
+    config.retransmitInterval = 1000
+    config.recoverInterval = 1000
+    config.transmitInterval = 1000
     config.maxDataPoints = 1
     config.logger.console = false
     // config.logger.level = 'debug'
     var SpmAgent = require('spm-agent')
     var agent = new SpmAgent('https://NOT_REACHABLE-spm-receiver.sematext.com:443/receiver/v1/_bulk')
-    var ElAgent = require('../lib/eventLoopAgent.js')
-    var elagent = new ElAgent()
-    agent.createAgent(elagent)
+    var OsAgent = require('../lib/osAgent.js')
+    var oagent = new OsAgent()
+    agent.createAgent(oagent)
     setTimeout(function () {
-      agent.setUrl('https://spm-receiver.sematext.com:443/receiver/v1/_bulk')
-    }, 5000)
+      agent.setUrl( receiverUrl )
+    }, 2000)
     var eventReceived = false
     agent.on('stats', function (stats) {
       // console.log ('ret %d send %d failed %d', stats.retransmit, stats.send, stats.error)
@@ -174,41 +211,4 @@ describe('SPM for NodeJS tests', function () {
 
   })
 
-  it('Generic HTTP Server Agent sends metrics', function (done) {
-    try {
-      this.timeout(20000)
-      config.collectionInterval = 200
-      var njsAgent = require('../lib/index.js')
-      var port = (process.env.NJS_TEST_PORT || 8095)
-
-      function httpTest (testDone) {
-        try {
-          var http = require('http')
-          http.createServer(function (req, res) {
-            res.writeHead(200, {'Content-Type': 'text/plain'})
-            res.end('Hello World\n')
-          }).listen(port, '127.0.0.1')
-          // console.log('Listening on ' + port)
-          var checkMetric = function (metric) {
-            // console.log (metric)
-            if (metric.name === 'http')
-              done()
-          }
-          njsAgent.on('metric', checkMetric)
-        } catch (ex) {
-          console.log('Error in HTTP Worker:' + ex.stack)
-        }
-      }
-      httpTest()
-      setTimeout(function () {
-        var request = require('request')
-        request.get('http://127.0.0.1:' + (port) + '/', function (err, res) {
-          if (err)
-            console.log('Error' + err.stack)
-        })
-      }, 600)
-    } catch (err) {
-      done(err)
-    }
-  })
 })

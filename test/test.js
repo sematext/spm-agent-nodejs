@@ -8,11 +8,26 @@
  * This source code is to be used exclusively by users and customers of Sematext.
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
+/* global describe, it */
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 var config = require('spm-agent').Config
 var port = (process.env.NJS_TEST_PORT || 8095)
 var receiverUrl = 'http://localhost:' + port
 config.rcFlat.spmSenderBulkInsertUrl = receiverUrl
+
+function httpTest (njsAgent, done) {
+  try {
+    var checkMetric = function (metric) {
+      if (metric.name === 'http') {
+        done()
+      }
+    }
+    njsAgent.once('metric', checkMetric)
+  } catch (ex) {
+    console.error('Error in HTTP Worker:' + ex.stack)
+    done(ex)
+  }
+}
 
 describe('SPM for NodeJS tests', function () {
   it('Generic HTTP Server Agent sends metrics', function (done) {
@@ -27,24 +42,10 @@ describe('SPM for NodeJS tests', function () {
         res.writeHead(200, {'Content-Type': 'text/plain'})
         res.end('{"code":"200"}\n')
       }).listen(port, '127.0.0.1')
-
-      function httpTest (testDone) {
-        try {
-          var checkMetric = function (metric) {
-            if (metric.name === 'http') {
-              done()
-            }
-          }
-          njsAgent.once('metric', checkMetric)
-        } catch (ex) {
-          console.error('Error in HTTP Worker:' + ex.stack)
-          done(ex)
-        }
-      }
-      httpTest()
+      httpTest(njsAgent, done)
       setTimeout(function () {
         var request = require('request')
-        request.get('http://127.0.0.1:' + (port) + '/', function (err, res) {
+        request.get('http://127.0.0.1:' + (port) + '/', function (err) {
           if (err) {
             console.log('Error' + err.stack)
           }
@@ -93,7 +94,7 @@ describe('SPM for NodeJS tests', function () {
       var ElAgent = require('../lib/eventLoopAgent.js')
       var agent = new ElAgent()
       agent.start()
-      var checkMetric = function (m) {
+      var checkMetric = function () {
         agent.removeListener('metric', checkMetric)
         agent.stop()
         done()

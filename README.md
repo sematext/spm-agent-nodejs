@@ -2,6 +2,8 @@ spm-agent-nodejs
 ================
 [![bitHound Score](https://www.bithound.io/github/sematext/spm-agent-nodejs/badges/score.svg)](https://www.bithound.io/github/sematext/spm-agent-nodejs/)
 
+![npm-stats](https://nodei.co/npm/spm-agent-nodejs.png?downloads=true&downloadRank=true)
+
 [SPM performance monitoring by Sematext](http://www.sematext.com/spm) - this is the Node.js monitoring agent for SPM.
 
 Following information is collected and transmitted to SPM (Cloud or On-Premises version):

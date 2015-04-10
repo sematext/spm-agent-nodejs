@@ -15,6 +15,7 @@ var config = require('spm-agent').Config
 var util = require('util')
 var ls = require('ls')
 var os = require('os')
+var path = require ('path')
 
 var systemInfo = {
   operatingSystem: os.type() + ', ' + os.platform() + ', ' + os.release() + ', ' + os.arch(),
@@ -22,7 +23,7 @@ var systemInfo = {
   processEnvironment: process.env
 }
 
-var cfgDumpFileName = os.tmpdir() + 'spm-cfg-dump.txt'
+var cfgDumpFileName = path.join (os.tmpdir(), 'spm-cfg-dump.txt')
 fs.writeFileSync(cfgDumpFileName, util.inspect(config).toString() + '\nSystem-Info:\n' + util.inspect(systemInfo))
 var logfiles = ls(config.logger.dir + '/*')
 zip.addLocalFile(cfgDumpFileName)

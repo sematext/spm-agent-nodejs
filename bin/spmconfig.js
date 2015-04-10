@@ -10,6 +10,7 @@
  */
 var fs = require('fs')
 var os = require ('os')
+var path = require ('path')
 
 var spm_token = ''
 if (process.argv.length === 3) {
@@ -25,16 +26,16 @@ if (os.platform() === 'linux')
 var cfgLines = [
   "# Please don't change this configuration",
   '# Directory for buffered metrics',
-  'useLinuxAgent='+useLinuxAgent,
-  'dbDir = ./spmdb',
+  'useLinuxAgent='+ useLinuxAgent,
+  'dbDir = ' + path.join (__dirname,  'spmdb'),
   ' ',
   '# Application Token for SPM',
   '[tokens]',
   '  spm = ' + spm_token,
   ' ',
   '[logger]',
-  '  # log file directory default is ./spmlogs',
-  '  dir = ./spmlogs',
+  '  # log file directory default is __dirname / spmlogs',
+  '  dir = ' + path.join (__dirname,  'spmlogs'),
   '  # silent = true means no creation of log files',
   '  silent = false ',
   '  # log level for output - debug, info, error, defaults to error to be quiet',

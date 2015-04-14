@@ -5,7 +5,7 @@ spm-agent-nodejs
 
 ![npm-stats](https://nodei.co/npm/spm-agent-nodejs.png?downloads=true&downloadRank=true)
 
-[SPM performance monitoring by Sematext](http://www.sematext.com/spm) - this is the Node.js monitoring agent for SPM.
+[SPM performance monitoring by Sematext](http://sematext.com/spm/integrations/nodejs-spm-integration.html) - this is the Node.js monitoring agent for SPM.
 
 Following information is collected and transmitted to SPM (Cloud or On-Premises version):
 
@@ -13,11 +13,16 @@ Following information is collected and transmitted to SPM (Cloud or On-Premises 
 - Process Memory
 - EventLoop stats
 - Garbage Collector stats
-- HTTP server stats (requests, error rate, response times etc.)
-  Working for all HTTP servers that use Node.js http/https module including "connect" based frameworks like Express.js, Sails.js
-  and others like Hapi.js, ...
+- Web server stats (requests, error rate, response times etc.)
+  Working for all web servers frameworks that use Node.js http/https module including 
+  - "connect" based frameworks
+  - Express.js, 
+  - Sails.js
+  - Hapi.js
+  - Restify
+  - and others ...
 
-  The module is able to run in cluster mode (master/worker). 
+The module is able to run in cluster mode (master/worker). 
 
 # Status
 
@@ -78,6 +83,11 @@ Add this line at the begin of your source code / main script / app.js
     var spmAgent = require ('spm-agent-nodejs')
 ```
 
+# Results
+
+Screenshot taken from [announcement blog post](http://blog.sematext.com/2015/03/30/nodejs-iojs-monitoring/)
+
+![SPM for Node.js screenshot](https://sematext.files.wordpress.com/2015/03/nodejs-overview-2.png?w=936)
 
 # Troubleshooting
 

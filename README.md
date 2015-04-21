@@ -83,6 +83,12 @@ Add this line at the begin of your source code / main script / app.js
     var spmAgent = require ('spm-agent-nodejs')
 ```
 
+There is an alternative using io.js (>1.6.4). It supports a command line option "-r" to preload node modules before the actual application is started. In this case the original source code needs no change:
+
+```sh
+  iojs -r './spm-agent-nodejs' yourApp.js
+```
+
 # Results
 
 Screenshot taken from [announcement blog post](http://blog.sematext.com/2015/03/30/nodejs-iojs-monitoring/)

@@ -5,7 +5,7 @@ spm-agent-nodejs
 
 ![npm-stats](https://nodei.co/npm/spm-agent-nodejs.png?downloads=true&downloadRank=true)
 
-[SPM performance monitoring by Sematext](http://sematext.com/spm/integrations/nodejs-spm-integration.html) - this is the Node.js monitoring agent for SPM.
+[SPM performance monitoring by Sematext](http://sematext.com/spm/integrations/nodejs-monitoring.html) - this is the Node.js monitoring agent for SPM.
 
 Following information is collected and transmitted to SPM (Cloud or On-Premises version):
 

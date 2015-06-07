@@ -172,7 +172,7 @@ describe('SPM for NodeJS tests', function () {
     agent.once('stats', checkMetrics)
   })
   it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {
-    this.timeout(30000)
+    this.timeout(45000)
     config.collectionInterval = 1000
     config.retransmitInterval = 1000
     config.recoverInterval = 1000

@@ -103,6 +103,8 @@ Please visit our [WIKI](https://sematext.atlassian.net/wiki/display/PUBSPM/SPM+f
 
 Please check out [spm-metrics-js](https://www.npmjs.com/package/spm-metrics-js) to monitor any custom metric in your application.
 
+[spm-agent-docker](https://registry.hub.docker.com/u/sematext/spm-agent-docker/), aka [SPM for Docker](http://blog.sematext.com/2015/06/09/docker-monitoring-support/)
+
 # LICENCE
 
       Copyright (c) Sematext Group, Inc.

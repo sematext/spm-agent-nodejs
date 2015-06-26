@@ -50,7 +50,7 @@
     "moment": "^2.9.0",
     "node-df": "^0.1.1",
     "request": "^2.54.0",
-    "spm-agent": "^1.24.6",
+    "spm-agent": "^1.24.7",
     "which": "^1.0.9"
   },
   "devDependencies": {

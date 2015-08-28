@@ -75,7 +75,7 @@ describe('SPM for NodeJS tests', function () {
 
   it('GC Agent sends metrics', function (done) {
     try {
-      this.timeout(10000)
+      this.timeout(300000)
       var GcAgent = require('../lib/gcAgent.js')
       var agent = new GcAgent()
       agent.start()
@@ -84,7 +84,13 @@ describe('SPM for NodeJS tests', function () {
         done()
       }
       agent.once('metric', checkMetric)
+      var wasteMemory = []
+      for (var i=0; i<300000; i++)
+      {
+          var tmp = "Wasting some memory" 
+      }
     } catch (err) {
+      console.error(err.stack)
       done(err)
     }
   })
@@ -105,7 +111,7 @@ describe('SPM for NodeJS tests', function () {
     }
   })
   it('NJS - Wait for metrics of GC, eventLoop and OS monitor', function (done) {
-    this.timeout(10000)
+    this.timeout(30000)
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'

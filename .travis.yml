@@ -8,3 +8,6 @@ addons:
 node_js:
   - "0.12"
   - "iojs"
+install:
+  - export CXX=g++-4.8
+  - $CXX --version

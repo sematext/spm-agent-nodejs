@@ -5,9 +5,9 @@ spm-agent-nodejs
 
 ![npm-stats](https://nodei.co/npm/spm-agent-nodejs.png?downloads=true&downloadRank=true)
 
-[SPM performance monitoring by Sematext](http://sematext.com/spm/integrations/nodejs-monitoring.html) - this is the Node.js monitoring agent for SPM.
+This is the [Node.js monitoring](http://sematext.com/spm/integrations/nodejs-monitoring.html) agent for [SPM performance monitoring](http://sematext.com/spm) from Sematext.
 
-Following information is collected and transmitted to SPM (Cloud or On-Premises version):
+The following information is collected and transmitted to SPM (Cloud or On-Premises version):
 
 - OS Metrics (CPU / Mem)
 - Process Memory
@@ -29,7 +29,7 @@ The module is able to run in cluster mode (master/worker).
 Supported Node-Versions: Node >= 0.10, io.js >= 1.2
 
 Please check our [blog](http://blog.sematext.com/2015/03/30/nodejs-iojs-monitoring/) for more information or
-contact us [npmjs@sematext.com](mailto:npmjs@sematext.com).
+contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
 # Installation
 
@@ -39,7 +39,7 @@ contact us [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
 ```
 
-Get a free account and create a Node.js API token at [www.sematext.com](https://apps.sematext.com/users-web/register.do)
+Get a free account and create a Node.js API token at [sematext.com/spm](https://apps.sematext.com/users-web/register.do)
 
 # Configuration
 

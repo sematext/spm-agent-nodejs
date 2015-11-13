@@ -131,6 +131,7 @@ describe('SPM for NodeJS tests', function () {
   })
   it('FAIL EXPECTED - Wait to fail with wrong SPM-Receiver URL', function (done) {
     this.timeout(10000)
+    config.transmitInterval = 1000
     config.collectionInterval = 500
     config.retransmitInterval = 1000
     config.recoverInterval = 1000
@@ -179,10 +180,10 @@ describe('SPM for NodeJS tests', function () {
   })
   it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {
     this.timeout(45000)
-    config.collectionInterval = 1000
+    config.collectionInterval = 500
     config.retransmitInterval = 1000
     config.recoverInterval = 1000
-    config.transmitInterval = 1000
+    config.transmitInterval = 500
     config.maxDataPoints = 1
     config.logger.console = false
     // config.logger.level = 'debug'
@@ -193,7 +194,7 @@ describe('SPM for NodeJS tests', function () {
     agent.createAgent(oagent)
     setTimeout(function () {
       agent.setUrl(receiverUrl)
-    }, 2000)
+    }, 5000)
     var eventReceived = false
     agent.on('stats', function (stats) {
       if (stats.retransmit > 0) {

@@ -92,8 +92,8 @@ There is an alternative using latest 4.x and 5.x releases. It supports a command
 
 # Results
 
-- [Top Node.sj Metrics to Watch](http://blog.sematext.com/2015/12/02/top-nodejs-metrics-to-watch/)
-![SPM for Node.js screenshot](https://sematext.files.wordpress.com/2015/12/bildschirmfoto-2015-12-05-um-21-12-521.png)
+- _[Top Node.js Metrics to Watch](http://blog.sematext.com/2015/12/02/top-nodejs-metrics-to-watch/)
+![SPM for Node.js screenshot](https://sematext.files.wordpress.com/2015/12/bildschirmfoto-2015-12-05-um-21-12-521.png)_
 
 # Troubleshooting
 

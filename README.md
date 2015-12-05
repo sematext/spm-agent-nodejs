@@ -26,9 +26,9 @@ The module is able to run in cluster mode (master/worker).
 
 # Status
 
-Supported Node-Versions: Node >= 0.10, io.js >= 1.2
+Supported Node-Versions: Node >= 0.10, 0.12, 4.x, 5.x 
 
-Please check our [blog](http://blog.sematext.com/2015/03/30/nodejs-iojs-monitoring/) for more information or
+Please check our [blog](http://blog.sematext.com/tag/node.js/) for more information or
 contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
 # Installation
@@ -77,23 +77,24 @@ Please note the use of double "_" for nested properties
 
 # Usage
 
+## Node Version 0.10 and 0.12
 Add this line at the begin of your source code / main script / app.js
 
 ```js
     var spmAgent = require ('spm-agent-nodejs')
 ```
 
-There is an alternative using io.js (>1.6.4). It supports a command line option "-r" to preload node modules before the actual application is started. In this case the original source code needs no modification:
+## Node Version > 4.x 
+There is an alternative using latest 4.x and 5.x releases. It supports a command line option "-r" to preload node modules before the actual application is started. In this case the original source code needs no modification:
 
 ```sh
-  iojs -r './spm-agent-nodejs' yourApp.js
+  node -r './spm-agent-nodejs' yourApp.js
 ```
 
 # Results
 
-Screenshot taken from [announcement blog post](http://blog.sematext.com/2015/03/30/nodejs-iojs-monitoring/)
-
-![SPM for Node.js screenshot](https://sematext.files.wordpress.com/2015/03/nodejs-overview-2.png?w=936)
+- [Top Node.sj Metrics to Watch](http://blog.sematext.com/2015/12/02/top-nodejs-metrics-to-watch/)
+![SPM for Node.js screenshot](https://sematext.files.wordpress.com/2015/12/bildschirmfoto-2015-12-05-um-21-12-521.png)
 
 # Troubleshooting
 
@@ -103,16 +104,9 @@ Please visit our [WIKI](https://sematext.atlassian.net/wiki/display/PUBSPM/SPM+f
 
 Please check out [spm-metrics-js](https://www.npmjs.com/package/spm-metrics-js) to monitor any custom metric in your application.
 
-[spm-agent-docker](https://registry.hub.docker.com/u/sematext/spm-agent-docker/), aka [SPM for Docker](http://blog.sematext.com/2015/06/09/docker-monitoring-support/)
+[sematext-agent-docker](https://registry.hub.docker.com/u/sematext/sematext-agent-docker/), aka [Sematext Agent for Docker](http://blog.sematext.com/2015/06/09/docker-monitoring-support/)
 
 # LICENCE
 
-      Copyright (c) Sematext Group, Inc.
-      All Rights Reserved
-
-      SPM for NodeJS is free-to-use, proprietary software.
-      THIS IS PROPRIETARY SOURCE CODE OF Sematext Group, Inc. (Sematext)
-      This source code may not be copied, reverse engineered, or altered for any purpose.
-      This source code is to be used exclusively by users and customers of Sematext.
-      Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
+Apache 2 - see [LICENSE](https://github.com/sematext/spm-agent-nodejs/blob/master/LICENSE) file.
 

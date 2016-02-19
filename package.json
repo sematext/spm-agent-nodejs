@@ -43,11 +43,9 @@
   "homepage": "http://www.sematext.com",
   "dependencies": {
     "adm-zip": "^0.4.7",
-    "flat": "^1.6.0",
     "gc-stats": "^1.0.0",
     "ls": "^0.1.0",
     "measured": "^1.0.2",
-    "moment": "^2.10.6",
     "node-df": "^0.1.1",
     "request": "^2.65.0",
     "spm-agent": "^1.29.0",

@@ -29,7 +29,7 @@ function httpTest (njsAgent, done) {
   }
 }
 
-describe('SPM for NodeJS tests', function () {
+describe('SPM for Node.js tests', function () {
   it('Generic HTTP Server Agent sends metrics', function (done) {
     try {
       this.timeout(10000)
@@ -73,7 +73,7 @@ describe('SPM for NodeJS tests', function () {
     }
   })
 
-  it('GC Agent sends metrics', function (done) {
+  it('GC Agent metrics', function (done) {
     try {
       this.timeout(300000)
       var GcAgent = require('../lib/gcAgent.js')
@@ -94,7 +94,7 @@ describe('SPM for NodeJS tests', function () {
       done(err)
     }
   })
-  it('EventLoop Agent sends metrics', function (done) {
+  it('EventLoop Agent metrics', function (done) {
     try {
       this.timeout(10000)
       var ElAgent = require('../lib/eventLoopAgent.js')
@@ -110,7 +110,7 @@ describe('SPM for NodeJS tests', function () {
       done(err)
     }
   })
-  it('NJS - Wait for metrics of GC, eventLoop and OS monitor', function (done) {
+  it('Wait for metrics: GC, Event Loop and OS monitor', function (done) {
     this.timeout(30000)
     config.maxDataPoints = 1
     config.logger.console = false

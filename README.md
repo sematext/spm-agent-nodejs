@@ -25,12 +25,13 @@ The module is able to run in cluster mode (master/worker).
 
 # Status
 
-Supported Node-Versions: Node >= 0.10, 0.12, 4.x, 5.x 
+Supported Node-Versions: Node >= 0.10, 0.12, 4.x, 5.x, 6.x 
 
-Please check our [blog](http://blog.sematext.com/tag/node.js/) for more information or
-contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
+Please check our [blog](http://blog.sematext.com/tag/node.js/) for more information or contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
 # Installation
+
+- [How to Add Performance Monitoring to Node.js Applications](https://sematext.com/blog/2015/07/31/adding-monitoring-to-node-js-and-io-js-apps/)
 
 ```
 

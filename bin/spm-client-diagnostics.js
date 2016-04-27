@@ -9,11 +9,10 @@
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
 var fs = require('fs')
-var AdmZip = require('adm-zip')
-var zip = new AdmZip()
+var ZipZipTop = require('zip-zip-top')
+var zip = new ZipZipTop()
 var config = require('spm-agent').Config
 var util = require('util')
-var ls = require('ls')
 var os = require('os')
 var path = require ('path')
 
@@ -25,15 +24,10 @@ var systemInfo = {
 
 var cfgDumpFileName = path.join (os.tmpdir(), 'spm-cfg-dump.txt')
 fs.writeFileSync(cfgDumpFileName, util.inspect(config).toString() + '\nSystem-Info:\n' + util.inspect(systemInfo))
-var logfiles = ls(config.logger.dir + '/*')
-zip.addLocalFile(cfgDumpFileName)
-// console.log ('Adding file ' + cfgDumpFileName)
-logfiles.forEach(function (f) {
-  // console.log ('Adding file ' + f.file )
-  zip.addLocalFile(f.full)
-})
+zip.folder(config.logger.dir)
 var archFileName = path.join(os.tmpdir(), 'spm-diagnose.zip')
-zip.writeZip(archFileName)
+zip.writeToFile(archFileName)
 console.log('SPM diagnostics info is in  ' + archFileName)
 console.log('Please e-mail the file to spm-support@sematext.com')
 fs.unlink(cfgDumpFileName, function () {})
+

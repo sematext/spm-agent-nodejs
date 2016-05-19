@@ -43,6 +43,7 @@
   "homepage": "http://www.sematext.com",
   "dependencies": {
     "measured": "^1.0.2",
+    "procfs-stats": "1.0.1",
     "node-df": "^0.1.1",
     "request": "^2.65.0",
     "spm-agent": "^1.30.1",

@@ -20,6 +20,8 @@ function httpTest (njsAgent, done) {
     var checkMetric = function (metric) {
       if (metric.name === 'http') {
         done()
+      } else {
+        njsAgent.once('metric', checkMetric)
       }
     }
     njsAgent.once('metric', checkMetric)
@@ -32,7 +34,7 @@ function httpTest (njsAgent, done) {
 describe('SPM for Node.js tests', function () {
   it('Generic HTTP Server Agent sends metrics', function (done) {
     try {
-      this.timeout(10000)
+      this.timeout(20000)
       config.collectionInterval = 500
       var HttpAgent = require('../lib/httpServerAgent.js')
       var njsAgent = new HttpAgent()
@@ -58,11 +60,12 @@ describe('SPM for Node.js tests', function () {
   })
   it('OS Agent sends metrics', function (done) {
     try {
-      this.timeout(10000)
-      var OsAgent = require('../lib/osAgent.js')
+      this.timeout(32000)
+      
+      var OsAgent = require('spm-agent-os')
       var agent = new OsAgent()
       agent.start()
-      var checkMetric = function () {
+      var checkMetric = function (metric) {
         agent.removeListener('metric', checkMetric)
         agent.stop()
         done()
@@ -189,7 +192,7 @@ describe('SPM for Node.js tests', function () {
     // config.logger.level = 'debug'
     var SpmAgent = require('spm-agent')
     var agent = new SpmAgent('https://NOT_REACHABLE-spm-receiver.sematext.com:443/receiver/v1/_bulk')
-    var OsAgent = require('../lib/osAgent.js')
+    var OsAgent = require('spm-agent-os')
     var oagent = new OsAgent()
     agent.createAgent(oagent)
     setTimeout(function () {

@@ -99,7 +99,7 @@ describe('SPM for Node.js tests', function () {
   })
   it('EventLoop Agent metrics', function (done) {
     try {
-      this.timeout(10000)
+      this.timeout(15000)
       var ElAgent = require('../lib/eventLoopAgent.js')
       var agent = new ElAgent()
       agent.start()

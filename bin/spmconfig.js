@@ -12,15 +12,13 @@ var fs = require('fs')
 var os = require('os')
 var path = require('path')
 
-var spm_token = ''
+var spmToken = ''
 if (process.argv.length === 3) {
-  spm_token = process.argv[2]
+  spmToken = process.argv[2]
 }
-if (process.env.SPM_TOKEN)
-  spm_token = process.env.SPM_TOKEN
+if (process.env.SPM_TOKEN) { spmToken = process.env.SPM_TOKEN }
 var useLinuxAgent = 'false'
-if (os.platform() === 'linux')
-{
+if (os.platform() === 'linux') {
   useLinuxAgent = 'true'
 }
 var cfgLines = [
@@ -32,7 +30,7 @@ var cfgLines = [
   '# SPM_MONITOR_TAGS=project:frontend,environment:test,role:testserver',
   '# Application Token for SPM',
   'tokens:',
-  '  spm: ' + spm_token,
+  '  spm: ' + spmToken,
   ' ',
   'logger:',
   '  # log file directory default is __dirname / spmlogs',

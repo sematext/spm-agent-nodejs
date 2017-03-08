@@ -10,7 +10,6 @@
  */
 // "use strict"
 var fs = require('fs')
-var path = require('path')
 
 try {
   var script = fs.readFileSync(process.argv[2]).toString()
@@ -19,19 +18,20 @@ try {
     console.log('e.g. spmmonitor ./server/app.js')
   }
   var scriptName = process.argv[2]
-  var agent = require('spm-agent-nodejs')
+
+  require('spm-agent-nodejs')
   // Remove Arguments for Runner Script, to give started process a clean ENV
   process.argv.splice(1, 1)
   process.argv.splice(2, 1)
-  var script = fs.readFileSync(scriptName).toString()
-  var lines = script.split('\n')
-  if (lines[0] && /\#!/.test(lines[0])) {
-    console.log('removed shebang line:' + lines[0])
-    lines [0] = '\n'
-  }
-  eval(lines.join('\n'))
 
+  script = fs.readFileSync(scriptName).toString()
+  var lines = script.split('\n')
+  if (lines[0] && /^#!/.test(lines[0])) {
+    console.log('removed shebang line:' + lines[0])
+    lines[0] = '\n'
+  }
+  eval(lines.join('\n')) // eslint-disable-line
 } catch (err) {
-    console.error(err)
-    process.exit(1)
+  console.error(err)
+  process.exit(1)
 }

@@ -61,7 +61,7 @@ describe('SPM for Node.js tests', function () {
   it('OS Agent sends metrics', function (done) {
     try {
       this.timeout(32000)
-      
+
       var OsAgent = require('spm-agent-os')
       var agent = new OsAgent()
       agent.start()
@@ -88,10 +88,11 @@ describe('SPM for Node.js tests', function () {
       }
       agent.once('metric', checkMetric)
       var wasteMemory = []
-      for (var i=0; i<300000; i++)
-      {
-          var tmp = "Wasting some memory" 
+      for (var i = 0; i < 300000; i++) {
+        var tmp = 'Wasting some memory'
       }
+
+      wasteMemory.push(tmp)
     } catch (err) {
       console.error(err.stack)
       done(err)
@@ -209,7 +210,5 @@ describe('SPM for Node.js tests', function () {
         done()
       }
     })
-
   })
-
 })

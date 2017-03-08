@@ -14,7 +14,7 @@ var zip = new ZipZipTop()
 var config = require('spm-agent').Config
 var util = require('util')
 var os = require('os')
-var path = require ('path')
+var path = require('path')
 
 var systemInfo = {
   operatingSystem: os.type() + ', ' + os.platform() + ', ' + os.release() + ', ' + os.arch(),
@@ -22,7 +22,7 @@ var systemInfo = {
   processEnvironment: process.env
 }
 
-var cfgDumpFileName = path.join (os.tmpdir(), 'spm-cfg-dump.txt')
+var cfgDumpFileName = path.join(os.tmpdir(), 'spm-cfg-dump.txt')
 fs.writeFileSync(cfgDumpFileName, util.inspect(config).toString() + '\nSystem-Info:\n' + util.inspect(systemInfo))
 zip.folder(config.logger.dir)
 var archFileName = path.join(os.tmpdir(), 'spm-diagnose.zip')
@@ -30,4 +30,3 @@ zip.writeToFile(archFileName)
 console.log('SPM diagnostics info is in  ' + archFileName)
 console.log('Please e-mail the file to spm-support@sematext.com')
 fs.unlink(cfgDumpFileName, function () {})
-

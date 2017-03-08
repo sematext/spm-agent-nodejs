@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha test/test.js",
+    "test": "npm run lint && mocha test/test.js",
+    "lint": "standard",
     "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs"
   },
   "repository": {
@@ -52,6 +53,7 @@
     "gc-stats": "^1.0.0"
   },
   "devDependencies": {
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "standard": "^9.0.1"
   }
 }

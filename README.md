@@ -74,6 +74,7 @@ The only required setting is the SPM Application Token, this could be set via co
 
 Please note the use of double "_" for nested properties
 
+
 ## Configuration via Environment Variables
 
     export SPM_TOKEN=token
@@ -86,7 +87,12 @@ Please note the use of double "_" for nested properties
     export SPM_LOG_TO_CONSOLE=true
     export HTTPS_PROXY=http://my-local-proxy-server
 
+## Changing API endpoints for Sematext Cloud EU 
 
+```
+export SPM_RECEIVER_URL=https://spm-receiver.sematext.com/receiver/v1
+export EVENTS_RECEIVER_URL=https://event-receiver.sematext.com
+```
 
 # Usage
 

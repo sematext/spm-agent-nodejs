@@ -90,8 +90,8 @@ Please note the use of double "_" for nested properties
 ## Changing API endpoints for Sematext Cloud EU 
 
 ```
-export SPM_RECEIVER_URL=https://spm-receiver.sematext.com/receiver/v1
-export EVENTS_RECEIVER_URL=https://event-receiver.sematext.com
+export SPM_RECEIVER_URL=https://spm-receiver.eu.sematext.com/receiver/v1
+export EVENTS_RECEIVER_URL=https://event-receiver.eu.sematext.com
 ```
 
 # Usage

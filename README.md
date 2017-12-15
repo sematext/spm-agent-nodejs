@@ -25,7 +25,7 @@ The module is able to run in cluster mode (master/worker).
 
 # Status
 
-Supported Node-Versions: Node >= 0.10, 0.12, 4.x, 5.x, 6.x 
+Supported Node-Versions: Node >= 4.x, 5.x, 6.x. 
 
 Please check our [blog](http://blog.sematext.com/tag/node.js/) for more information or contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
 

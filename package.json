@@ -50,7 +50,7 @@
     "zip-zip-top": "^0.2.0"
   },
   "optionalDependencies": {
-    "gc-stats": "^1.0.0"
+     "@risingstack/gc-stats": "^1.0.10"
   },
   "devDependencies": {
     "mocha": "^3.2.0",

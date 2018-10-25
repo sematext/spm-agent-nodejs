@@ -12,7 +12,7 @@
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 var config = require('spm-agent').Config
 var port = (process.env.NJS_TEST_PORT || 8095)
-var receiverUrl = 'http://localhost:' + port
+var receiverUrl = 'http://127.0.0.1:' + port
 config.rcFlat.spmSenderBulkInsertUrl = receiverUrl
 
 function httpTest (njsAgent, done) {
@@ -145,7 +145,7 @@ describe('SPM for Node.js tests', function () {
     var SpmAgent = require('spm-agent')
     var ElAgent = require('../lib/eventLoopAgent.js')
     var elagent = new ElAgent()
-    var agent = new SpmAgent('https://NOTREACHABLE-spm-receiver.sematext.com:443/receiver/v1/_bulk')
+    var agent = new SpmAgent('https://NOTREACHABLE:443/receiver/v1/_bulk')
     agent.createAgent(elagent)
     var checkMetric = function (stats) {
       if (stats.error > 0) {
@@ -158,20 +158,20 @@ describe('SPM for Node.js tests', function () {
     agent.once('stats', checkMetric)
   })
   it('SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL', function (done) {
-    this.timeout(10000)
+    this.timeout(45000)
     var SpmAgent = require('spm-agent')
     var agent = new SpmAgent(receiverUrl)
     var ElAgent = require('../lib/eventLoopAgent.js')
     var elagent = new ElAgent()
     agent.createAgent(elagent)
     function checkMetrics (stats) {
-      // console.log (stats)
+      // console.log(stats)
       if (stats.send > 0) {
-        agent.stop()
         done()
+        agent.stop()
       } else if (stats.error > 0) {
-        agent.removeListener('stats', checkMetrics)
         done('send errors in SPM')
+        agent.removeListener('stats', checkMetrics)
         agent.stop()
       } else {
         // if old metricsdb is in local dir we might get retransmit as first event
@@ -183,16 +183,16 @@ describe('SPM for Node.js tests', function () {
     agent.once('stats', checkMetrics)
   })
   it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {
-    this.timeout(45000)
+    this.timeout(90000)
     config.collectionInterval = 500
     config.retransmitInterval = 1000
     config.recoverInterval = 1000
     config.transmitInterval = 500
     config.maxDataPoints = 1
-    config.logger.console = false
+    config.logger.console = true
     // config.logger.level = 'debug'
     var SpmAgent = require('spm-agent')
-    var agent = new SpmAgent('https://NOT_REACHABLE-spm-receiver.sematext.com:443/receiver/v1/_bulk')
+    var agent = new SpmAgent('https://NOT_REACHABLE:443/receiver/v1/_bulk')
     var OsAgent = require('spm-agent-os')
     var oagent = new OsAgent()
     agent.createAgent(oagent)

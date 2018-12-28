@@ -6,6 +6,9 @@
   "directories": {
     "test": "test"
   },
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "scripts": {
     "test": "npm run lint && mocha --exit test/test.js",
     "lint": "standard",

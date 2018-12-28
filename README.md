@@ -96,20 +96,25 @@ export EVENTS_RECEIVER_URL=https://event-receiver.eu.sematext.com
 
 # Usage
 
-## Node Version 0.10 and 0.12
-Add this line at the begin of your source code / main script / app.js
+## Method 1: Preloading spm-agent-nodejs - no source code modifications requred
 
-```js
-    var spmAgent = require ('spm-agent-nodejs')
-```
-
-## Node Version > 4.x 
-There is an alternative using latest 4.x and 5.x releases. It supports a command line option "-r" to preload node modules before the actual application is started. In this case the original source code needs no modification:
+The command line option "-r" preloads node modules before the actual application is started. In this case the original source code needs no modification:
 
 ```sh
   node -r './spm-agent-nodejs' yourApp.js
 ```
 
+## Method 2: Add spm-agent-nodejs to your source code
+Add this line at the begin of your source code / main script / app.js
+
+```
+# add spm-agent-nodejs to your project
+npm i spm-agent-nodejs --save
+```
+
+```js
+    var spmAgent = require ('spm-agent-nodejs')
+```
 # Results
 
 - _[Top Node.js Metrics to Watch](http://blog.sematext.com/2015/12/02/top-nodejs-metrics-to-watch/)

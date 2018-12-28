@@ -1,13 +1,13 @@
 {
   "name": "spm-agent-nodejs",
-  "version": "1.30.9",
+  "version": "2.0.0",
   "description": "Node.js monitoring agent for SPM by Sematext",
   "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "npm run lint && mocha test/test.js",
+    "test": "npm run lint && mocha --exit test/test.js",
     "lint": "standard",
     "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs"
   },
@@ -43,17 +43,17 @@
   },
   "homepage": "http://www.sematext.com",
   "dependencies": {
-    "measured": "^1.1.0",
-    "request": "^2.79.0",
-    "spm-agent": "^1.31.3",
-    "spm-agent-os": "^1.30.10",
+    "measured-core": "^1.1.0",
+    "request": "^2.88.0",
+    "spm-agent": "^1.31.16",
+    "spm-agent-os": "^1.30.13",
     "zip-zip-top": "^0.2.0"
   },
   "optionalDependencies": {
-     "@risingstack/gc-stats": "^1.0.10"
+    "gc-stats": "1.2.1"
   },
   "devDependencies": {
-    "mocha": "^3.2.0",
+    "mocha": "^5.2.0",
     "standard": "^9.0.1"
   }
 }

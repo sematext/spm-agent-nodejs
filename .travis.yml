@@ -13,6 +13,7 @@ node_js:
   - "6"
   - "8"
   - "10"
+  - "11"
 install:
   - export CXX=g++-4.8
   - $CXX --version

@@ -118,7 +118,7 @@ npm i spm-agent-nodejs --save
 # Results
 
 - _[Top Node.js Metrics to Watch](http://blog.sematext.com/2015/12/02/top-nodejs-metrics-to-watch/)
-![SPM for Node.js screenshot](https://sematext.com/wp-content/uploads/2017/04/nodejs-monitoring-new-ui.png)_
+![SPM for Node.js screenshot](https://sematext.com/wp-content/uploads/2019/04/sematext-nodejs-metrics.png)_
 
 # Troubleshooting
 

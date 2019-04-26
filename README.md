@@ -122,7 +122,7 @@ npm i spm-agent-nodejs --save
 
 # Troubleshooting
 
-Please visit our [WIKI](https://sematext.atlassian.net/wiki/display/PUBSPM/SPM+for+Node.js) for more information
+Please visit our [documentation](https://sematext.com/docs/integration/node.js/) for more information.
 
 # Other SPM related packages
 

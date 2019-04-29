@@ -4,7 +4,7 @@ spm-agent-nodejs
 
 ![npm-stats](https://nodei.co/npm/spm-agent-nodejs.png?downloads=true&downloadRank=true)
 
-This is the [Node.js monitoring](http://sematext.com/spm/integrations/nodejs-monitoring.html) agent for [SPM performance monitoring](http://sematext.com/spm) from Sematext.
+This is the [Node.js monitoring](https://sematext.com/integrations/nodejs-monitoring) agent for [Sematext Cloud](https://sematext.com/cloud).
 
 The following information is collected and transmitted to SPM (Cloud or On-Premises version):
 
@@ -27,11 +27,11 @@ The module is able to run in cluster mode (master/worker).
 
 Supported Node-Versions: Node >= 6.x. 
 
-Please check our [blog](http://blog.sematext.com/tag/node.js/) for more information or contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
+Please check our [blog](https://sematext.com/tag/node-js/) for more information or contact us at [npmjs@sematext.com](mailto:npmjs@sematext.com).
 
 # Installation
 
-- [How to Add Performance Monitoring to Node.js Applications](https://sematext.com/blog/2015/07/31/adding-monitoring-to-node-js-and-io-js-apps/)
+- [How to Add Performance Monitoring to Node.js Applications](https://sematext.com/blog/adding-monitoring-to-node-js-and-io-js-apps/)
 
 ```
 
@@ -39,7 +39,7 @@ Please check our [blog](http://blog.sematext.com/tag/node.js/) for more informat
 
 ```
 
-Get a free account and create a Node.js API token at [sematext.com/spm](https://apps.sematext.com/users-web/register.do)
+Get a free account and create a Node.js API token at [sematext.com/spm](https://apps.sematext.com/ui/registration)
 
 # Configuration
 
@@ -117,20 +117,19 @@ npm i spm-agent-nodejs --save
 ```
 # Results
 
-- _[Top Node.js Metrics to Watch](http://blog.sematext.com/2015/12/02/top-nodejs-metrics-to-watch/)
+- _[Top Node.js Metrics to Watch](https://blog.sematext.com/top-nodejs-metrics-to-watch/)
 ![SPM for Node.js screenshot](https://sematext.com/wp-content/uploads/2019/04/sematext-nodejs-metrics.png)_
 
 # Troubleshooting
 
 Please visit our [documentation](https://sematext.com/docs/integration/node.js/) for more information.
 
-# Other SPM related packages
+# Other monitoring packages
 
 Please check out [spm-metrics-js](https://www.npmjs.com/package/spm-metrics-js) to monitor any custom metric in your application.
 
-[sematext-agent-docker](https://registry.hub.docker.com/u/sematext/sematext-agent-docker/), aka [Sematext Agent for Docker](http://blog.sematext.com/2015/06/09/docker-monitoring-support/)
+[Sematext Docker Agent](https://hub.docker.com/r/sematext/agent/) (see also: https://sematext.com/docker and https://sematext.com/kubernetes)
 
 # LICENSE
 
 Apache 2 - see [LICENSE](https://github.com/sematext/spm-agent-nodejs/blob/master/LICENSE) file.
-

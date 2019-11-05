@@ -1,4 +1,4 @@
-var spmAgent = require('../lib/index.js')  // or 'spm-agent-nodejs'
+var spmAgent = require('../lib/index.js') // or 'spm-agent-nodejs'
 spmAgent.on('stats', function (stats) {
   console.log(stats)
 })

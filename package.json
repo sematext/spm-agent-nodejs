@@ -53,10 +53,10 @@
     "zip-zip-top": "^0.2.0"
   },
   "optionalDependencies": {
-    "gc-stats": "1.2.1"
+    "gc-stats": "^1.4.0"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "standard": "^9.0.1"
+    "mocha": "^6.2.2",
+    "standard": "^14.3.1"
   }
 }

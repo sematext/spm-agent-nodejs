@@ -9,7 +9,7 @@
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
 /* global describe, it */
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 var config = require('spm-agent').Config
 var port = (process.env.NJS_TEST_PORT || 8095)
 var receiverUrl = 'http://127.0.0.1:' + port
@@ -41,7 +41,7 @@ describe('SPM for Node.js tests', function () {
       njsAgent.start()
       var http = require('http')
       http.createServer(function (req, res) {
-        res.writeHead(200, {'Content-Type': 'text/plain'})
+        res.writeHead(200, { 'Content-Type': 'text/plain' })
         res.end('{"code":"200"}\n')
       }).listen(port, '127.0.0.1')
       httpTest(njsAgent, done)
@@ -120,7 +120,7 @@ describe('SPM for Node.js tests', function () {
     config.logger.console = false
     config.logger.level = 'debug'
     var NjsAgent = require('../lib/index.js')
-    var metricTypes = {gc: 0, eventloop: 0, numWorkers: 0}
+    var metricTypes = { gc: 0, eventloop: 0, numWorkers: 0 }
 
     function checkMetrics (metric) {
       metricTypes[metric.name] = 1

@@ -161,7 +161,7 @@ describe('SPM for Node.js tests', function () {
     NjsAgent.on('metric', checkMetrics)
   })
 
-  it('Wait for metrics: Process Agent', function (done) {
+  it.only('Wait for metrics: Process Agent', function (done) {
     this.timeout(30000)
     config.maxDataPoints = 1
     config.logger.console = false
@@ -170,22 +170,27 @@ describe('SPM for Node.js tests', function () {
     let metricCounter = 0
 
     function checkMetrics (metric) {
-      const { pid, ppid, uptime, processType } = metric.fields
+      const { uptime, processes } = metric.fields
+      const pid = metric.tags['nodejs.process.pid']
+      const ppid = metric.tags['nodejs.process.ppid']
+      const type = metric.tags['nodejs.process.type']
 
-      if (pid) {
-        metricCounter++
-      }
-      if (ppid) {
-        metricCounter++
-      }
+      console.log(
+        pid,
+        ppid,
+        type,
+        uptime,
+        processes
+      )
+
       if (uptime) {
         metricCounter++
       }
-      if (processType) {
+      if (processes) {
         metricCounter++
       }
 
-      if (metricCounter > 3) {
+      if (metricCounter > 1) {
         NjsAgent.removeListener('metric', checkMetrics)
         done()
         NjsAgent.stop()

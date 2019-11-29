@@ -120,13 +120,9 @@ describe('SPM for Node.js tests', function () {
     config.logger.console = false
     config.logger.level = 'debug'
     var NjsAgent = require('../lib/index.js')
-    var metricTypes = { gc: 0, eventloop: 0, numWorkers: 0 }
+    var metricTypes = { gc: 0, eventloop: 0 }
 
     function checkMetrics (metric) {
-      // console.log(metric)
-      if (metric.fields.workers) {
-        metricTypes.numWorkers = 1
-      }
       if (metric.fields.time) {
         metricTypes.eventloop = 1
       }
@@ -134,8 +130,8 @@ describe('SPM for Node.js tests', function () {
         metricTypes.gc = 1
       }
       metricTypes[metric.name] = 1
-      var checksum = metricTypes.gc + metricTypes.eventloop + metricTypes.numWorkers
-      if (checksum > 2) {
+      var checksum = metricTypes.gc + metricTypes.eventloop
+      if (checksum > 1) {
         NjsAgent.removeListener('metric', checkMetrics)
         done()
         NjsAgent.stop()
@@ -143,6 +139,61 @@ describe('SPM for Node.js tests', function () {
     }
     NjsAgent.on('metric', checkMetrics)
   })
+
+  it('Wait for metrics: Worker Agent', function (done) {
+    this.timeout(30000)
+    config.maxDataPoints = 1
+    config.logger.console = false
+    config.logger.level = 'debug'
+    var NjsAgent = require('../lib/index.js')
+    let metricCounter = 0
+
+    function checkMetrics (metric) {
+      if (metric.fields.workers) {
+        metricCounter++
+      }
+      if (metricCounter > 0) {
+        NjsAgent.removeListener('metric', checkMetrics)
+        done()
+        NjsAgent.stop()
+      }
+    }
+    NjsAgent.on('metric', checkMetrics)
+  })
+
+  it('Wait for metrics: Process Agent', function (done) {
+    this.timeout(30000)
+    config.maxDataPoints = 1
+    config.logger.console = false
+    config.logger.level = 'debug'
+    const NjsAgent = require('../lib/index.js')
+    let metricCounter = 0
+
+    function checkMetrics (metric) {
+      const { pid, ppid, uptime, processType } = metric.fields
+
+      if (pid) {
+        metricCounter++
+      }
+      if (ppid) {
+        metricCounter++
+      }
+      if (uptime) {
+        metricCounter++
+      }
+      if (processType) {
+        metricCounter++
+      }
+
+      if (metricCounter > 3) {
+        NjsAgent.removeListener('metric', checkMetrics)
+        done()
+        NjsAgent.stop()
+      }
+    }
+    NjsAgent.on('metric', checkMetrics)
+  })
+
   /**
    *  This test case needs adjustments
   it('FAIL EXPECTED - Wait to fail with wrong SPM-Receiver URL', function (done) {
@@ -170,31 +221,31 @@ describe('SPM for Node.js tests', function () {
     agent.once('stats', checkMetric)
   })
   */
-  it('SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL', function (done) {
-    this.timeout(45000)
-    var SpmAgent = require('spm-agent')
-    var agent = new SpmAgent(receiverUrl)
-    var ElAgent = require('../lib/eventLoopAgent.js')
-    var elagent = new ElAgent()
-    agent.createAgent(elagent)
-    function checkMetrics (stats) {
-      // console.log(stats)
-      if (stats.send > 0) {
-        done()
-        agent.stop()
-      } else if (stats.error > 0) {
-        done('send errors in SPM')
-        agent.removeListener('stats', checkMetrics)
-        agent.stop()
-      } else {
-        // if old metricsdb is in local dir we might get retransmit as first event
-        // so we need to register again
-        // console.log (stats)
-        agent.once('stats', checkMetrics)
-      }
-    }
-    agent.once('stats', checkMetrics)
-  })
+  // it('SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL', function (done) {
+  //   this.timeout(45000)
+  //   var SpmAgent = require('spm-agent')
+  //   var agent = new SpmAgent(receiverUrl)
+  //   var ElAgent = require('../lib/eventLoopAgent.js')
+  //   var elagent = new ElAgent()
+  //   agent.createAgent(elagent)
+  //   function checkMetrics (stats) {
+  //     // console.log(stats)
+  //     if (stats.send > 0) {
+  //       done()
+  //       agent.stop()
+  //     } else if (stats.error > 0) {
+  //       done('send errors in SPM')
+  //       agent.removeListener('stats', checkMetrics)
+  //       agent.stop()
+  //     } else {
+  //       // if old metricsdb is in local dir we might get retransmit as first event
+  //       // so we need to register again
+  //       // console.log (stats)
+  //       agent.once('stats', checkMetrics)
+  //     }
+  //   }
+  //   agent.once('stats', checkMetrics)
+  // })
   /**
    * this case needs adjustments, influx interface is missing stats for retransmission
   it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {

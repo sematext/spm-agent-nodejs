@@ -161,7 +161,7 @@ describe('SPM for Node.js tests', function () {
     NjsAgent.on('metric', checkMetrics)
   })
 
-  it.only('Wait for metrics: Process Agent', function (done) {
+  it('Wait for metrics: Process Agent', function (done) {
     this.timeout(30000)
     config.maxDataPoints = 1
     config.logger.console = false

@@ -171,17 +171,6 @@ describe('SPM for Node.js tests', function () {
 
     function checkMetrics (metric) {
       const { uptime, processes } = metric.fields
-      const pid = metric.tags['nodejs.process.pid']
-      const ppid = metric.tags['nodejs.process.ppid']
-      const type = metric.tags['nodejs.process.type']
-
-      console.log(
-        pid,
-        ppid,
-        type,
-        uptime,
-        processes
-      )
 
       if (uptime) {
         metricCounter++

@@ -10,7 +10,8 @@
  */
 /* global describe, it */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-var config = require('spm-agent').Config
+var SpmAgent = require('spm-agent')
+var config = SpmAgent.Config
 var port = (process.env.NJS_TEST_PORT || 8097)
 var receiverUrl = 'http://127.0.0.1:' + port
 config.rcFlat.spmSenderBulkInsertUrl = receiverUrl

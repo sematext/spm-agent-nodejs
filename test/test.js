@@ -150,7 +150,7 @@ describe('SPM for Node.js tests', function () {
     let metricCounter = 0
 
     function checkMetrics (metric) {
-      if (metric.fields.workers) {
+      if (metric.fields && metric.fields.workers) {
         metricCounter++
       }
       if (metricCounter > 0) {

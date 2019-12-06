@@ -1,26 +1,18 @@
 const spmAgent = require('../lib/index.js') // or 'spm-agent-nodejs'
-const pidusageTree = require('pidusage-tree')
-
 spmAgent.on('stats', function (stats) {
   // console.log(stats)
 })
 spmAgent.on('metric', function (metric) {
-  if (metric && metric.fields !== undefined &&
-    (metric.fields.processes ||
-    metric.fields.numWorkers)
+  // if (metric.name === 'http') {
+  // if (metric.name === 'numWorkers') {
+  // if (metric.sct === 'APP') {
+  if (
+    metric.name === 'process' ||
+    metric.name === 'numWorkers'
   ) {
     console.log(metric)
   }
 })
-
-/* setInterval(() => {
-  pidusageTree(process.pid, function (err, results) {
-    if (err) {
-      return console.error(err)
-    }
-    console.log(process.pid, results)
-  })
-}, 1000) */
 
 // if (process.send === undefined) {
 //   console.log('started directly')

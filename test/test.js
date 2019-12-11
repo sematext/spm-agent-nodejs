@@ -171,13 +171,14 @@ describe('SPM for Node.js tests', function () {
     let metricCounter = 0
 
     function checkMetrics (metric) {
-      const { uptime, processes } = metric.fields
-
-      if (uptime) {
-        metricCounter++
-      }
-      if (processes) {
-        metricCounter++
+      const { uptime, mainProcessCount } = metric.fields
+      if (metric.measurement === 'nodejs.process') {
+        if (uptime) {
+          metricCounter++
+        }
+        if (mainProcessCount) {
+          metricCounter++
+        }
       }
 
       if (metricCounter > 1) {

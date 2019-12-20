@@ -3,9 +3,10 @@ spmAgent.on('stats', function (stats) {
   // console.log(stats)
 })
 spmAgent.on('metric', function (metric) {
-  if (metric && metric.fields !== undefined &&
-    (metric.fields.processes ||
-    metric.fields.numWorkers)
+  // if (metric.sct === 'APP') {
+  if (
+    metric.name === 'process' ||
+    metric.name === 'numWorkers'
   ) {
     console.log(metric)
   }

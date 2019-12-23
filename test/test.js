@@ -164,7 +164,7 @@ describe('SPM for Node.js tests', function () {
   })
 
   it('Wait for metrics: Process Agent', function (done) {
-    this.timeout(60000)
+    this.timeout(30000)
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'
@@ -179,11 +179,6 @@ describe('SPM for Node.js tests', function () {
         cpuPercent,
         memory
       } = metric.fields
-
-      console.log('Measurement:\n', metric.measurement)
-      console.log('Fields:\n', metric.fields)
-      console.log('Tags:\n', metric.tags)
-      console.log('\n\n')
 
       if (metric.measurement === 'nodejs.process') {
         if (uptime) {
@@ -201,14 +196,6 @@ describe('SPM for Node.js tests', function () {
         if (memory) {
           metricCounter++
         }
-
-        // console.log(metric.tags)
-        // console.log(metric.fields)
-        // console.log(uptime)
-        // console.log(mainProcessCount)
-        // console.log(childProcessCount)
-        // console.log(cpuPercent)
-        // console.log(memory)
       }
 
       if (metricCounter > 4) {

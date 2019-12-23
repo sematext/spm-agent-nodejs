@@ -15,6 +15,15 @@ spmAgent.on('metric', function (metric) {
   }
 })
 
+spmAgent.on('metric', function (metric) {
+  if (
+    metric.measurement === 'nodejs.process'
+  ) {
+    console.log(metric)
+    console.log('\n\n')
+  }
+})
+
 // if (process.send === undefined) {
 //   console.log('started directly')
 // } else {
@@ -29,6 +38,6 @@ http.createServer(function (req, res) {
   longComputation.send('start')
   longComputation.on('message', sum => {
     res.end(String(sum))
-    longComputation.send('stop')
+    longComputation.kill(1)
   })
 }).listen(3000)

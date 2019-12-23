@@ -10,12 +10,12 @@
  */
 /* global describe, it */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-// var SpmAgent = require('spm-agent')
-var SpmAgent = require('../../spm-agent/lib')
+var SpmAgent = require('spm-agent')
 var config = SpmAgent.Config
 var port = (process.env.NJS_TEST_PORT || 8097)
 var receiverUrl = 'http://127.0.0.1:' + port
 config.rcFlat.spmSenderBulkInsertUrl = receiverUrl
+config.collectionInterval = 1
 
 function httpTest (njsAgent, done) {
   try {
@@ -163,12 +163,11 @@ describe('SPM for Node.js tests', function () {
     NjsAgent.on('metric', checkMetrics)
   })
 
-  it.only('Wait for metrics: Process Agent', function (done) {
+  it('Wait for metrics: Process Agent', function (done) {
     this.timeout(60000)
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'
-    config.collectionInterval = 1
     const NjsAgent = require('../lib/index.js')
     let metricCounter = 0
 

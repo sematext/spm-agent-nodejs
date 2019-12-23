@@ -164,10 +164,11 @@ describe('SPM for Node.js tests', function () {
   })
 
   it.only('Wait for metrics: Process Agent', function (done) {
-    this.timeout(30000)
+    this.timeout(60000)
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'
+    config.collectionInterval = 1
     const NjsAgent = require('../lib/index.js')
     let metricCounter = 0
 
@@ -180,6 +181,11 @@ describe('SPM for Node.js tests', function () {
         memory
       } = metric.fields
 
+      console.log('Measurement:\n', metric.measurement)
+      console.log('Fields:\n', metric.fields)
+      console.log('Tags:\n', metric.tags)
+      console.log('\n\n')
+
       if (metric.measurement === 'nodejs.process') {
         if (uptime) {
           metricCounter++
@@ -187,17 +193,26 @@ describe('SPM for Node.js tests', function () {
         if (mainProcessCount) {
           metricCounter++
         }
+        if (childProcessCount) {
+          metricCounter++
+        }
+        if (cpuPercent) {
+          metricCounter++
+        }
+        if (memory) {
+          metricCounter++
+        }
 
         // console.log(metric.tags)
         // console.log(metric.fields)
-        console.log(uptime)
-        console.log(mainProcessCount)
-        console.log(childProcessCount)
-        console.log(cpuPercent)
-        console.log(memory)
+        // console.log(uptime)
+        // console.log(mainProcessCount)
+        // console.log(childProcessCount)
+        // console.log(cpuPercent)
+        // console.log(memory)
       }
 
-      if (metricCounter > 1) {
+      if (metricCounter > 4) {
         NjsAgent.removeListener('metric', checkMetrics)
         done()
         NjsAgent.stop()

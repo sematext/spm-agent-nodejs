@@ -10,7 +10,8 @@
  */
 /* global describe, it */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-var SpmAgent = require('spm-agent')
+// var SpmAgent = require('spm-agent')
+var SpmAgent = require('../../spm-agent/lib')
 var config = SpmAgent.Config
 var port = (process.env.NJS_TEST_PORT || 8097)
 var receiverUrl = 'http://127.0.0.1:' + port
@@ -162,7 +163,7 @@ describe('SPM for Node.js tests', function () {
     NjsAgent.on('metric', checkMetrics)
   })
 
-  it('Wait for metrics: Process Agent', function (done) {
+  it.only('Wait for metrics: Process Agent', function (done) {
     this.timeout(30000)
     config.maxDataPoints = 1
     config.logger.console = false
@@ -171,7 +172,14 @@ describe('SPM for Node.js tests', function () {
     let metricCounter = 0
 
     function checkMetrics (metric) {
-      const { uptime, mainProcessCount } = metric.fields
+      const {
+        uptime,
+        mainProcessCount,
+        childProcessCount,
+        cpuPercent,
+        memory
+      } = metric.fields
+
       if (metric.measurement === 'nodejs.process') {
         if (uptime) {
           metricCounter++
@@ -179,6 +187,14 @@ describe('SPM for Node.js tests', function () {
         if (mainProcessCount) {
           metricCounter++
         }
+
+        // console.log(metric.tags)
+        // console.log(metric.fields)
+        console.log(uptime)
+        console.log(mainProcessCount)
+        console.log(childProcessCount)
+        console.log(cpuPercent)
+        console.log(memory)
       }
 
       if (metricCounter > 1) {

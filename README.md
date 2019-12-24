@@ -86,6 +86,8 @@ Please note the use of double "_" for nested properties
     export SPM_LOG_LEVEL=error
     export SPM_LOG_TO_CONSOLE=true
     export HTTPS_PROXY=http://my-local-proxy-server
+    # if you are using PM2
+    export PM2=true
 
 ## Changing API endpoints for Sematext Cloud EU 
 
@@ -113,8 +115,24 @@ npm i spm-agent-nodejs --save
 ```
 
 ```js
-    var spmAgent = require ('spm-agent-nodejs')
+require('spm-agent-nodejs')
 ```
+
+## With PM2
+Add an additional environment variable to your environment or `.env` file to enable PM2 monitoring.
+
+```env
+PM2=true
+```
+
+```js
+// load env vars if you're using dotenv
+require('dotenv').config({ path: '/absolute/path/to/your/project/.env' })
+// start agent
+require('spm-agent-nodejs')
+```
+
+
 # Results
 
 - _[Top Node.js Metrics to Watch](https://blog.sematext.com/top-nodejs-metrics-to-watch/)

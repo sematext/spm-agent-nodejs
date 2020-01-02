@@ -27,6 +27,6 @@ fs.writeFileSync(cfgDumpFileName, util.inspect(config).toString() + '\nSystem-In
 zip.folder(config.logger.dir)
 var archFileName = path.join(os.tmpdir(), 'spm-diagnose.zip')
 zip.writeToFile(archFileName)
-console.log('SPM diagnostics info is in  ' + archFileName)
+console.log('Sematext diagnostics info is in  ' + archFileName)
 console.log('Please e-mail the file to support@sematext.com')
 fs.unlink(cfgDumpFileName, function () {})

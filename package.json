@@ -48,7 +48,7 @@
   "dependencies": {
     "measured-core": "^1.41.0",
     "request": "^2.88.0",
-    "spm-agent": "^2.0.0",
+    "spm-agent": "file:../spm-agent",
     "spm-agent-os": "^1.30.13",
     "zip-zip-top": "^0.2.0"
   },

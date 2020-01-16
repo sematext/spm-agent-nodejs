@@ -10,6 +10,10 @@
  */
 /* global describe, it */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+// make sure config has a infra token before spm-agent is laoded first time
+if (!process.env.INFRA_TOKEN) {
+  process.env.INFRA_TOKEN = 'INFRA_TOKEN'
+}
 var SpmAgent = require('spm-agent')
 var config = SpmAgent.Config
 var port = (process.env.NJS_TEST_PORT || 8097)
@@ -169,18 +173,32 @@ describe('SPM for Node.js tests', function () {
     config.logger.console = false
     config.logger.level = 'debug'
     let metricCounter = 0
-    var ProcessAgent = require('../lib/processAgent.js')
-    var agent = new ProcessAgent()
+    let errorReported = false
+    const ProcessAgent = require('../lib/processAgent.js')
+    const agent = new ProcessAgent()
     agent.start()
 
     function checkMetrics (metric) {
+      if (errorReported) {
+        return
+      }
       if (metric.measurement && metric.measurement.indexOf('process') > -1 &&
         metric.fields.uptime &&
         metric.fields.memory &&
         metric.fields['cpu.percent']) {
+        if (metric.tags.token !== config.tokens.infra) {
+          console.log(metric)
+          done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
+          errorReported = true
+        }
         metricCounter = metricCounter + 1
       }
       if (metric.measurement && metric.measurement.indexOf('process') > -1 && metric.fields.count) {
+        if (metric.tags.token !== config.tokens.infra) {
+          console.log(metric)
+          done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
+          errorReported = true
+        }
         metricCounter = metricCounter + 1
       }
 

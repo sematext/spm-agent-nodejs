@@ -185,12 +185,13 @@ describe('SPM for Node.js tests', function () {
       if (metric.measurement && metric.measurement.indexOf('process') > -1 &&
         metric.fields.uptime &&
         metric.fields.memory &&
-        metric.fields['cpu.percent']) {
+        metric.fields['cpu.percent'] &&
+        metric.fields['thread.count']) {
         if (metric.tags.token !== config.tokens.infra) {
-          console.log(metric)
           done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
           errorReported = true
         }
+        console.log(metric)
         metricCounter = metricCounter + 1
       }
       if (metric.measurement && metric.measurement.indexOf('process') > -1 && metric.fields.count) {
@@ -202,7 +203,7 @@ describe('SPM for Node.js tests', function () {
         metricCounter = metricCounter + 1
       }
 
-      if (metricCounter > 1) {
+      if (metricCounter > 2) {
         agent.removeListener('metric', checkMetrics)
         agent.stop()
         done()

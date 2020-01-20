@@ -185,7 +185,7 @@ describe('SPM for Node.js tests', function () {
       if (metric.measurement && metric.measurement.indexOf('process') > -1 &&
         metric.fields.uptime &&
         metric.fields.memory &&
-        metric.fields['cpu.percent']) {
+        metric.fields['cpu.usage']) {
         if (metric.tags.token !== config.tokens.infra) {
           console.log(metric)
           done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))

@@ -191,12 +191,10 @@ describe('SPM for Node.js tests', function () {
           done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
           errorReported = true
         }
-        console.log(metric)
         metricCounter = metricCounter + 1
       }
       if (metric.measurement && metric.measurement.indexOf('process') > -1 && metric.fields.count) {
         if (metric.tags.token !== config.tokens.infra) {
-          console.log(metric)
           done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
           errorReported = true
         }

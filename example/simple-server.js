@@ -8,12 +8,15 @@ spmAgent.on('stats', function (stats) {
 //   }
 // })
 spmAgent.on('metric', function (metric) {
-  if (
-    metric.measurement === 'nodejs.process'
-  ) {
-    // console.log(metric)
-    // console.log('\n---------------------------------------------------\n')
-  }
+  // if (
+  //   metric.name === 'os'
+  // ) {
+  //   console.log(metric)
+  //   console.log('\n---------------------------------------------------\n')
+  // }
+
+  console.log(metric)
+  console.log('\n---------------------------------------------------\n')
 })
 
 var http = require('http')

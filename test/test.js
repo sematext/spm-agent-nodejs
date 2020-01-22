@@ -64,7 +64,7 @@ describe('SPM for Node.js tests', function () {
       done(err)
     }
   })
-  it.only('OS Agent sends metrics', function (done) {
+  it('OS Agent sends metrics', function (done) {
     try {
       this.timeout(32000)
 

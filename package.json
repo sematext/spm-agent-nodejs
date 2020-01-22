@@ -49,7 +49,7 @@
     "measured-core": "^1.51.1",
     "pidusage-tree": "^2.0.5",
     "request": "^2.88.0",
-    "spm-agent": "^2.0.6",
+    "spm-agent": "^2.0.7",
     "spm-agent-os": "^1.30.16",
     "zip-zip-top": "^0.2.0"
   },

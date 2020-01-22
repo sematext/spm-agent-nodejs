@@ -1,6 +1,6 @@
 {
   "name": "spm-agent-nodejs",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Node.js monitoring agent for SPM by Sematext",
   "main": "lib/index.js",
   "directories": {

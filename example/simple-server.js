@@ -2,9 +2,17 @@ var spmAgent = require('../lib/index.js') // or 'spm-agent-nodejs'
 spmAgent.on('stats', function (stats) {
   // console.log(stats)
 })
+// spmAgent.on('metric', function (metric) {
+//   if (metric.name === 'http') {
+//     console.log(metric)
+//   }
+// })
 spmAgent.on('metric', function (metric) {
-  if (metric.name === 'http') {
-    console.log(metric)
+  if (
+    metric.measurement === 'nodejs.process'
+  ) {
+    // console.log(metric)
+    // console.log('\n---------------------------------------------------\n')
   }
 })
 

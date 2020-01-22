@@ -1,4 +1,5 @@
 const spmAgent = require('../lib/index.js') // or 'spm-agent-nodejs'
+
 spmAgent.on('stats', function (stats) {
   // console.log(stats)
 })
@@ -11,6 +12,15 @@ spmAgent.on('metric', function (metric) {
     metric.name === 'numWorkers'
   ) {
     console.log(metric)
+  }
+})
+
+spmAgent.on('metric', function (metric) {
+  if (
+    metric.measurement === 'nodejs.process'
+  ) {
+    console.log(metric)
+    console.log('\n\n')
   }
 })
 
@@ -28,6 +38,6 @@ http.createServer(function (req, res) {
   longComputation.send('start')
   longComputation.on('message', sum => {
     res.end(String(sum))
-    longComputation.send('stop')
+    longComputation.kill(1)
   })
-}).listen(3000)
+}).listen(4000)

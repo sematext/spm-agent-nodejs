@@ -10,11 +10,16 @@
  */
 /* global describe, it */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+// make sure config has a infra token before spm-agent is laoded first time
+if (!process.env.INFRA_TOKEN) {
+  process.env.INFRA_TOKEN = 'INFRA_TOKEN'
+}
 var SpmAgent = require('spm-agent')
 var config = SpmAgent.Config
 var port = (process.env.NJS_TEST_PORT || 8097)
 var receiverUrl = 'http://127.0.0.1:' + port
 config.rcFlat.spmSenderBulkInsertUrl = receiverUrl
+config.collectionInterval = 1
 
 function httpTest (njsAgent, done) {
   try {
@@ -167,110 +172,41 @@ describe('SPM for Node.js tests', function () {
     config.maxDataPoints = 1
     config.logger.console = false
     config.logger.level = 'debug'
-    const NjsAgent = require('../lib/index.js')
     let metricCounter = 0
+    let errorReported = false
+    const ProcessAgent = require('../lib/processAgent.js')
+    const agent = new ProcessAgent()
+    agent.start()
 
     function checkMetrics (metric) {
-      const { uptime, processes } = metric.fields
-
-      if (uptime) {
-        metricCounter++
+      if (errorReported) {
+        return
       }
-      if (processes) {
-        metricCounter++
+      if (metric.measurement && metric.measurement.indexOf('process') > -1 &&
+        metric.fields.uptime &&
+        metric.fields.rss &&
+        metric.fields['cpu.usage'] &&
+        metric.fields['thread.count']) {
+        if (metric.tags.token !== config.tokens.infra) {
+          done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
+          errorReported = true
+        }
+        metricCounter = metricCounter + 1
+      }
+      if (metric.measurement && metric.measurement.indexOf('process') > -1 && metric.fields.count) {
+        if (metric.tags.token !== config.tokens.infra) {
+          done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
+          errorReported = true
+        }
+        metricCounter = metricCounter + 1
       }
 
-      if (metricCounter > 1) {
-        NjsAgent.removeListener('metric', checkMetrics)
-        done()
-        NjsAgent.stop()
-      }
-    }
-    NjsAgent.on('metric', checkMetrics)
-  })
-
-  /**
-   *  This test case needs adjustments
-  it('FAIL EXPECTED - Wait to fail with wrong SPM-Receiver URL', function (done) {
-    this.timeout(10000)
-    config.transmitInterval = 1000
-    config.collectionInterval = 500
-    config.retransmitInterval = 1000
-    config.recoverInterval = 1000
-    config.maxDataPoints = 1
-    config.logger.console = false
-    config.logger.level = 'debug'
-    var SpmAgent = require('spm-agent')
-    var ElAgent = require('../lib/eventLoopAgent.js')
-    var elagent = new ElAgent()
-    var agent = new SpmAgent('https://NOTREACHABLE:443/receiver/v1/_bulk')
-    agent.createAgent(elagent)
-    var checkMetric = function (stats) {
-      if (stats.error > 0) {
+      if (metricCounter > 2) {
+        agent.removeListener('metric', checkMetrics)
         agent.stop()
         done()
-      } else if (stats.send > 0) {
-        done('how could it send when URL is not correct? - pls. check config settings')
       }
     }
-    agent.once('stats', checkMetric)
+    agent.on('metric', checkMetrics)
   })
-  */
-  // it('SUCCESS EXPECTED - Wait for successful transmission to correct SPM-Receiver URL', function (done) {
-  //   this.timeout(45000)
-  //   var SpmAgent = require('spm-agent')
-  //   var agent = new SpmAgent(receiverUrl)
-  //   var ElAgent = require('../lib/eventLoopAgent.js')
-  //   var elagent = new ElAgent()
-  //   agent.createAgent(elagent)
-  //   function checkMetrics (stats) {
-  //     // console.log(stats)
-  //     if (stats.send > 0) {
-  //       done()
-  //       agent.stop()
-  //     } else if (stats.error > 0) {
-  //       done('send errors in SPM')
-  //       agent.removeListener('stats', checkMetrics)
-  //       agent.stop()
-  //     } else {
-  //       // if old metricsdb is in local dir we might get retransmit as first event
-  //       // so we need to register again
-  //       // console.log (stats)
-  //       agent.once('stats', checkMetrics)
-  //     }
-  //   }
-  //   agent.once('stats', checkMetrics)
-  // })
-  /**
-   * this case needs adjustments, influx interface is missing stats for retransmission
-  it('RETRANSMIT EXPECTED - 1st wrong SPM-Receiver URL, then correct URL, wait for retransmit', function (done) {
-    this.timeout(90000)
-    config.collectionInterval = 500
-    config.retransmitInterval = 1000
-    config.recoverInterval = 1000
-    config.transmitInterval = 500
-    config.maxDataPoints = 1
-    config.logger.console = true
-    // config.logger.level = 'debug'
-    var SpmAgent = require('spm-agent')
-    var agent = new SpmAgent('https://NOT_REACHABLE:443/receiver/v1/_bulk')
-    var OsAgent = require('spm-agent-os')
-    var oagent = new OsAgent()
-    agent.createAgent(oagent)
-    setTimeout(function () {
-      agent.setUrl(receiverUrl)
-    }, 5000)
-    var eventReceived = false
-    agent.on('stats', function (stats) {
-      if (stats.retransmit > 0) {
-        if (eventReceived) {
-          return
-        } else {
-          eventReceived = true
-        }
-        done()
-      }
-    })
-  })
-  */
 })

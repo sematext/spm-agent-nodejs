@@ -46,10 +46,11 @@
   },
   "homepage": "http://www.sematext.com",
   "dependencies": {
-    "measured-core": "^1.41.0",
+    "measured-core": "^1.51.1",
+    "pidusage-tree": "^2.0.5",
     "request": "^2.88.0",
-    "spm-agent": "^2.0.0",
-    "spm-agent-os": "^1.30.13",
+    "spm-agent": "^2.0.8",
+    "spm-agent-os": "^1.30.16",
     "zip-zip-top": "^0.2.0"
   },
   "optionalDependencies": {

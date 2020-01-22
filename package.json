@@ -50,7 +50,7 @@
     "pidusage-tree": "^2.0.5",
     "request": "^2.88.0",
     "spm-agent": "^2.0.8",
-    "spm-agent-os": "^1.30.16",
+    "spm-agent-os": "^1.30.17",
     "zip-zip-top": "^0.2.0"
   },
   "optionalDependencies": {

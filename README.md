@@ -129,6 +129,10 @@ require('dotenv').config({ path: '/absolute/path/to/your/project/.env' })
 require('spm-agent-nodejs')
 ```
 
+```bash
+pm2 start app.js -i max
+```
+
 # Results
 
 - _[Top Node.js Metrics to Watch](https://blog.sematext.com/top-nodejs-metrics-to-watch/)

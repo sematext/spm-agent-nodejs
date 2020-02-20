@@ -13,10 +13,17 @@ const os = require('os')
 const path = require('path')
 
 let monitoringToken = ''
+let monitoringTokenString = ''
 let infraToken = ''
 
-if (process.env.SPM_TOKEN) { monitoringToken = process.env.SPM_TOKEN }
-if (process.env.MONITORING_TOKEN) { monitoringToken = process.env.MONITORING_TOKEN }
+if (process.env.SPM_TOKEN) {
+  monitoringToken = process.env.SPM_TOKEN
+  monitoringTokenString = `  spm: ${monitoringToken}`
+}
+if (process.env.MONITORING_TOKEN) {
+  monitoringToken = process.env.MONITORING_TOKEN
+  monitoringTokenString = `  monitoring: ${monitoringToken}`
+}
 if (process.env.INFRA_TOKEN) { infraToken = process.env.INFRA_TOKEN }
 
 if (monitoringToken === '') {
@@ -24,7 +31,7 @@ if (monitoringToken === '') {
   process.exit(0)
 }
 if (infraToken === '') {
-  console.log('[Optional] Add an INFRA_TOKEN to your environment: \'$ export INFRA_TOKEN=<your-infra-token-goes-here>\'')
+  console.log('[Optional] Add an INFRA_TOKEN to your environment: \'$ export INFRA_TOKEN=<your-infra-token-goes-here>\'\n')
 }
 
 let useLinuxAgent = 'false'
@@ -40,8 +47,7 @@ const cfgLines = [
   '# SPM_MONITOR_TAGS=project:frontend,environment:test,role:testserver',
   '# Application Token for SPM',
   'tokens:',
-  `  spm: ${monitoringToken}`,
-  `  monitoring: ${monitoringToken}`,
+  `${monitoringTokenString}`,
   `${infraToken !== '' ? `  infra: ${infraToken}\n` : ''}`,
   'logger:',
   '  # log file directory default is __dirname / spmlogs',

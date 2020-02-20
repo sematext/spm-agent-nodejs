@@ -8,40 +8,37 @@
  * This source code is to be used exclusively by users and customers of Sematext.
  * Please see the full license (found in LICENSE in this distribution) for details on its license and the licenses of its dependencies.
  */
-var fs = require('fs')
-var os = require('os')
-var path = require('path')
+const fs = require('fs')
+const os = require('os')
+const path = require('path')
 
-var monitoringToken = ''
-var infraToken = ''
+let monitoringToken = ''
+let monitoringTokenString = ''
+let infraToken = ''
 
-if (process.argv.length < 3) {
-  if (!(process.env.SPM_TOKEN || process.env.MONITORING_TOKEN) ||
-      !process.env.INFRA_TOKEN) {
-    console.log('Usage: spmconfig.js YOUR_NODE_APP_TOKEN YOUR_INFRA_TOKEN')
-  }
+if (process.env.SPM_TOKEN) {
+  monitoringToken = process.env.SPM_TOKEN
+  monitoringTokenString = `  spm: ${monitoringToken}`
 }
-
-if (process.argv.length > 2) {
-  monitoringToken = process.argv[2]
+if (process.env.MONITORING_TOKEN) {
+  monitoringToken = process.env.MONITORING_TOKEN
+  monitoringTokenString = `  monitoring: ${monitoringToken}`
 }
+if (process.env.INFRA_TOKEN) { infraToken = process.env.INFRA_TOKEN }
 
-if (process.argv.length > 3) {
-  infraToken = process.argv[3]
-} else {
-  console.log('Usage: spmconfig.js YOUR_NODE_APP_TOKEN YOUR_INFRA_TOKEN')
+if (monitoringToken === '') {
+  console.log('[Required] Add a MONITORING_TOKEN to your environment: \'$ export MONITORING_TOKEN=<your-monitoring-token-goes-here>\'')
   process.exit(0)
 }
+if (infraToken === '') {
+  console.log('[Optional] Add an INFRA_TOKEN to your environment: \'$ export INFRA_TOKEN=<your-infra-token-goes-here>\'\n')
+}
 
-if (process.env.SPM_TOKEN) { monitoringToken = process.env.SPM_TOKEN }
-if (process.env.MONITORING_TOKEN) { monitoringToken = process.env.MONITORING_TOKEN }
-if (process.env.INFRA_TOKEN) { monitoringToken = process.env.SPM_TOKEN }
-
-var useLinuxAgent = 'false'
+let useLinuxAgent = 'false'
 if (os.platform() === 'linux') {
   useLinuxAgent = 'true'
 }
-var cfgLines = [
+const cfgLines = [
   "# Please don't change this configuration",
   '# Directory for buffered metrics',
   'useLinuxAgent: ' + useLinuxAgent,
@@ -50,10 +47,8 @@ var cfgLines = [
   '# SPM_MONITOR_TAGS=project:frontend,environment:test,role:testserver',
   '# Application Token for SPM',
   'tokens:',
-  `  spm: ${monitoringToken}`,
-  `  monitoring: ${monitoringToken}`,
-  `  infra: ${infraToken}`,
-  ' ',
+  `${monitoringTokenString}`,
+  `${infraToken !== '' ? `  infra: ${infraToken}\n` : ''}`,
   'logger:',
   '  # log file directory default is __dirname / spmlogs',
   `  dir: ${path.join(process.cwd(), 'spmlogs')}`,
@@ -62,6 +57,6 @@ var cfgLines = [
   '  # log level for output - debug, info, error, defaults to error to be quiet',
   '  level: error '
 ]
-var cfgFileContent = cfgLines.join('\r\n')
+const cfgFileContent = cfgLines.join('\r\n')
 fs.writeFileSync('.spmagentrc', cfgFileContent)
 console.log('Create default config to file: ./.spmagentrc \n' + cfgFileContent)

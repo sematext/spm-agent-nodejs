@@ -12,7 +12,8 @@
   "scripts": {
     "test": "npm run lint && mocha --exit test/test.js",
     "lint": "standard",
-    "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs"
+    "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs",
+    "release": "release-it"
   },
   "repository": {
     "type": "git",
@@ -58,6 +59,13 @@
   },
   "devDependencies": {
     "mocha": "^6.2.2",
+    "release-it": "^12.6.0",
     "standard": "^14.3.1"
+  },
+  "release-it": {
+    "github": {
+      "release": true,
+      "tokenRef": "RELEASE_IT_GITHUB_TOKEN"
+    }
   }
 }

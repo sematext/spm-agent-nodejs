@@ -58,14 +58,28 @@
     "gc-stats": "^1.4.0"
   },
   "devDependencies": {
+    "auto-changelog": "^1.16.2",
     "mocha": "^6.2.2",
+    "npx": "^10.2.2",
     "release-it": "^12.6.0",
     "standard": "^14.3.1"
+  },
+  "pkg": {
+    "scripts": "lib/**/*.js"
   },
   "release-it": {
     "github": {
       "release": true,
-      "tokenRef": "RELEASE_IT_GITHUB_TOKEN"
+      "tokenRef": "RELEASE_IT_GITHUB_TOKEN",
+      "releaseNotes": "npx auto-changelog --stdout --commit-limit false -u --template ./changelog.hbs",
+      "____comment": "\"assets\": [\"dist/agent-*\"]"
+    },
+    "scripts": {
+      "beforeStage": "npx auto-changelog -p",
+      "changelog": "npx auto-changelog --stdout --commit-limit false --unreleased --template ./changelog.hbs"
     }
+  },
+  "standard": {
+    "parser": "babel-eslint"
   }
 }

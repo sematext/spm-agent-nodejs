@@ -65,9 +65,6 @@
     "release-it": "^12.6.0",
     "standard": "^14.3.1"
   },
-  "pkg": {
-    "scripts": "lib/**/*.js"
-  },
   "release-it": {
     "github": {
       "release": true,

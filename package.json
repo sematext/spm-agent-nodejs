@@ -13,6 +13,7 @@
     "test": "npm run lint && mocha --exit test/test.js",
     "lint": "standard",
     "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs",
+    "auto-changelog": "auto-changelog",
     "release": "release-it"
   },
   "repository": {
@@ -61,7 +62,6 @@
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
     "mocha": "^6.2.2",
-    "npx": "^10.2.2",
     "release-it": "^12.6.0",
     "standard": "^14.3.1"
   },
@@ -69,11 +69,11 @@
     "github": {
       "release": true,
       "tokenRef": "RELEASE_IT_GITHUB_TOKEN",
-      "releaseNotes": "npx auto-changelog --stdout --commit-limit false -u --template ./changelog.hbs",
+      "releaseNotes": "npm run auto-changelog --stdout --commit-limit false -u --template ./changelog.hbs",
       "____comment": "\"assets\": [\"dist/agent-*\"]"
     },
     "hooks": {
-      "after:bump": "npx auto-changelog -p"
+      "after:bump": "npm run auto-changelog -p"
     }
   },
   "standard": {

@@ -59,6 +59,7 @@
   },
   "devDependencies": {
     "auto-changelog": "^1.16.2",
+    "babel-eslint": "^10.0.3",
     "mocha": "^6.2.2",
     "npx": "^10.2.2",
     "release-it": "^12.6.0",

@@ -64,24 +64,6 @@ describe('SPM for Node.js tests', function () {
       done(err)
     }
   })
-  it('OS Agent sends metrics', function (done) {
-    try {
-      this.timeout(32000)
-
-      var OsAgent = require('spm-agent-os')
-      var agent = new OsAgent()
-      agent.start()
-      var checkMetric = function (metric) {
-        console.log(metric)
-        agent.removeListener('metric', checkMetric)
-        agent.stop()
-        done()
-      }
-      agent.once('metric', checkMetric)
-    } catch (err) {
-      done(err)
-    }
-  })
 
   it('GC Agent metrics', function (done) {
     try {

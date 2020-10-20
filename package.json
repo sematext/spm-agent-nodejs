@@ -55,7 +55,7 @@
     "spm-agent": "^2.0.8"
   },
   "optionalDependencies": {
-    "gc-stats": "^1.4.0",
+    "@sematext/gc-stats": "^1.5.2",
     "minimist": "^1.2.5"
   },
   "devDependencies": {

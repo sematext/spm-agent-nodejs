@@ -14,7 +14,8 @@
     "lint": "standard",
     "doc": "doxx --source . -i node_modules,spmlog,spmdb -t \"SPM Agent\" ./docs",
     "auto-changelog": "auto-changelog",
-    "release": "release-it"
+    "release": "release-it",
+    "dev": "nodemon -L /code/example/simple-server.js"
   },
   "repository": {
     "type": "git",
@@ -49,6 +50,8 @@
   "homepage": "http://www.sematext.com",
   "dependencies": {
     "adm-zip": "^0.4.14",
+    "dockernode": "^0.1.0",
+    "dockerode": "^3.2.1",
     "measured-core": "^1.51.1",
     "pidusage-tree": "^2.0.5",
     "request": "^2.88.0",
@@ -62,6 +65,7 @@
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
     "mocha": "^6.2.2",
+    "nodemon": "^2.0.6",
     "release-it": "^13.6.6",
     "standard": "^14.3.1"
   },

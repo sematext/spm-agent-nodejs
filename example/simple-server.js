@@ -1,21 +1,15 @@
 var spmAgent = require('../lib/index.js') // or 'spm-agent-nodejs'
 spmAgent.on('stats', function (stats) {
-  // console.log(stats)
+  console.log('\nStats\n')
+  console.log(stats)
+  console.log('\n---------------------------------------------------\n')
 })
-// spmAgent.on('metric', function (metric) {
-//   if (metric.name === 'http') {
-//     console.log(metric)
-//   }
-// })
 spmAgent.on('metric', function (metric) {
-  // if (
-  //   metric.name === 'os'
-  // ) {
-  //   console.log(metric)
-  //   console.log('\n---------------------------------------------------\n')
-  // }
-
-  console.log(metric)
+  console.log('\nMetric\n')
+  // console.log(metric.measurement === 'docker')
+  if (metric.measurement === 'docker') {
+    console.log(metric)
+  }
   console.log('\n---------------------------------------------------\n')
 })
 

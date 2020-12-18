@@ -38,3 +38,7 @@ spmdb
 # npm config
 .npmrc
 .npmignore
+
+# docker config
+Dockerfile
+docker-compose.yml

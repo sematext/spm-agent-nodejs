@@ -6,10 +6,10 @@ spmAgent.on('stats', function (stats) {
 })
 spmAgent.on('metric', function (metric) {
   console.log('\nMetric\n')
-  // console.log(metric.measurement === 'docker')
-  if (metric.measurement === 'docker') {
-    console.log(metric)
-  }
+  console.log(metric)
+  // if (metric.measurement === 'docker') {
+  //   console.log(metric)
+  // }
   console.log('\n---------------------------------------------------\n')
 })
 

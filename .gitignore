@@ -40,5 +40,5 @@ spmdb
 .npmignore
 
 # docker config
-Dockerfile
-docker-compose.yml
+Dockerfile*
+docker-compose*.yml

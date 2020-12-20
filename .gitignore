@@ -44,4 +44,4 @@ Dockerfile*
 docker-compose*.yml
 
 # nodemon
-nodemon*
+nodemon.json

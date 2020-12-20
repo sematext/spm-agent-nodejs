@@ -42,3 +42,6 @@ spmdb
 # docker config
 Dockerfile*
 docker-compose*.yml
+
+# nodemon
+nodemon*

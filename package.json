@@ -55,7 +55,7 @@
     "measured-core": "^1.51.1",
     "pidusage-tree": "^2.0.5",
     "request": "^2.88.0",
-    "spm-agent": "^2.0.8"
+    "spm-agent": "github:sematext/spm-agent#develop"
   },
   "optionalDependencies": {
     "@sematext/gc-stats": "^1.5.2",

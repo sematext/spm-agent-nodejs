@@ -42,6 +42,7 @@ spmdb
 # docker config
 Dockerfile*
 docker-compose*.yml
+.dockerignore
 
 # nodemon
 nodemon.json

@@ -31,7 +31,7 @@ const masterProcess = () => {
 
   for (let i = 0; i < numCPUs; i++) {
     cluster.fork()
-    cluster.on('exit', (worker) => cluster.fork())
+    cluster.on('exit', worker => cluster.fork())
   }
 }
 const childProcess = () => {
@@ -42,18 +42,22 @@ const childProcess = () => {
     // console.log(stats)
   })
   spmAgent.on('metric', function (metric) {
-    if (
-      // metric.name === 'process' ||
-      metric.name === 'numWorkers'
-    ) {
-      console.log(metric)
-    }
+    // if (
+    // metric.name === 'process' ||
+    // metric.name === 'numWorkers'
+    // ) {
+    console.log(metric)
+    // }
   })
 
-  console.log(`Worker${cluster.worker.id} running on port ${port} with pid ${cluster.worker.process.pid}`)
-  http.createServer(function (req, res) {
-    res.end('Hello World')
-  }).listen(port)
+  console.log(
+    `Worker${cluster.worker.id} running on port ${port} with pid ${cluster.worker.process.pid}`
+  )
+  http
+    .createServer(function (req, res) {
+      res.end('Hello World')
+    })
+    .listen(port)
 }
 
 if (cluster.isMaster) {

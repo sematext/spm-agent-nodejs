@@ -7,21 +7,18 @@ spmAgent.on('metric', function (metric) {
   // if (metric.name === 'http') {
   // if (metric.name === 'numWorkers') {
   // if (metric.sct === 'APP') {
-  if (
-    metric.name === 'process' ||
-    metric.name === 'numWorkers'
-  ) {
+  if (metric.name === 'process' || metric.name === 'numWorkers') {
     console.log(metric)
   }
 })
 
 spmAgent.on('metric', function (metric) {
-  if (
-    metric.measurement === 'nodejs.process'
-  ) {
-    console.log(metric)
-    console.log('\n\n')
-  }
+  // if (
+  // metric.measurement === 'nodejs.process'
+  // ) {
+  console.log(metric)
+  console.log('\n\n')
+  // }
 })
 
 // if (process.send === undefined) {
@@ -33,11 +30,13 @@ spmAgent.on('metric', function (metric) {
 const { resolve } = require('path')
 const { fork } = require('child_process')
 const http = require('http')
-http.createServer(function (req, res) {
-  const longComputation = fork(resolve(__dirname, 'longComputation.js'))
-  longComputation.send('start')
-  longComputation.on('message', sum => {
-    res.end(String(sum))
-    longComputation.kill(1)
+http
+  .createServer(function (req, res) {
+    const longComputation = fork(resolve(__dirname, 'longComputation.js'))
+    longComputation.send('start')
+    longComputation.on('message', sum => {
+      res.end(String(sum))
+      longComputation.kill(1)
+    })
   })
-}).listen(4000)
+  .listen(4000)

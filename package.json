@@ -61,7 +61,7 @@
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
     "mocha": "^6.2.2",
-    "release-it": "^13.6.6",
+    "release-it": "^14.7.0",
     "standard": "^14.3.1"
   },
   "release-it": {

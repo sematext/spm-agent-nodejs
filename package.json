@@ -51,7 +51,7 @@
     "adm-zip": "^0.4.14",
     "measured-core": "^1.51.1",
     "request": "^2.88.0",
-    "spm-agent": "^2.1.3"
+    "spm-agent": "^2.1.4"
   },
   "optionalDependencies": {
     "@sematext/gc-stats": "^1.5.2",

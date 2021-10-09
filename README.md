@@ -1,6 +1,6 @@
 spm-agent-nodejs
 ================
-![build status](https://api.travis-ci.org/sematext/spm-agent-nodejs.svg)
+<!-- ![build status](https://api.travis-ci.org/sematext/spm-agent-nodejs.svg) -->
 
 ![npm-stats](https://nodei.co/npm/spm-agent-nodejs.png?downloads=true&downloadRank=true)
 

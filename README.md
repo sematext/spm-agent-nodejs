@@ -6,7 +6,7 @@ spm-agent-nodejs
 
 This is the [Node.js monitoring](https://sematext.com/integrations/nodejs-monitoring) agent for [Sematext Cloud](https://sematext.com/cloud).
 
-The following information is collected and transmitted to SPM (Cloud or On-Premises version):
+The following information is collected and transmitted to Sematext:
 
 - OS Metrics (CPU / Mem)
 - Process Memory
@@ -70,7 +70,7 @@ The command above generates following default configuration file (YAML format):
           level: error
 
 
-The only required setting is the SPM Application Token, this could be set via config file ".spmagentrc" or environment variable:
+The only required setting is the Sematext App Token, this could be set via config file ".spmagentrc" or environment variable:
 
     export spmagent_tokens__monitoring=YOUR-NODEJS-MONITORING-TOKEN
 
@@ -96,6 +96,10 @@ Please note the use of double "_" for nested properties
 export SPM_RECEIVER_URL=https://spm-receiver.eu.sematext.com/receiver/v1
 export EVENTS_RECEIVER_URL=https://event-receiver.eu.sematext.com
 ```
+
+# Tags
+
+To configure tags to send along with metrics please see [spm-agent README](https://github.com/sematext/spm-agent/blob/master/README.md).
 
 # Usage
 

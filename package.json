@@ -51,17 +51,17 @@
     "adm-zip": "^0.4.14",
     "measured-core": "^1.51.1",
     "request": "^2.88.0",
-    "spm-agent": "^2.1.4"
+    "spm-agent": "^2.2.0"
   },
   "optionalDependencies": {
-    "@sematext/gc-stats": "^1.5.2",
-    "minimist": "^1.2.5"
+    "@sematext/gc-stats": "^1.5.7",
+    "minimist": "^1.2.6"
   },
   "devDependencies": {
     "auto-changelog": "^1.16.2",
     "babel-eslint": "^10.0.3",
     "mocha": "^6.2.2",
-    "release-it": "^14.7.0",
+    "release-it": "^15.1.1",
     "standard": "^14.3.1"
   },
   "release-it": {

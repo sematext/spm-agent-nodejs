@@ -54,8 +54,8 @@
     "spm-agent": "^2.2.1"
   },
   "optionalDependencies": {
-    "@sematext/gc-stats": "^1.5.7",
-    "minimist": "^1.2.6"
+    "minimist": "^1.2.6",
+    "@sematext/gc-stats": "github:PabloB94/node-gcstats"
   },
   "devDependencies": {
     "auto-changelog": "^1.16.2",

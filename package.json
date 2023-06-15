@@ -50,7 +50,7 @@
   "dependencies": {
     "adm-zip": "^0.4.14",
     "measured-core": "^1.51.1",
-    "spm-agent": "^2.2.3"
+    "spm-agent": "^2.2.4"
   },
   "optionalDependencies": {
     "minimist": "^1.2.6",

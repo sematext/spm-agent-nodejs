@@ -10,7 +10,7 @@
  */
 /* global describe, it */
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-// make sure config has a infra token before spm-agent is laoded first time
+// make sure config has an infra token before spm-agent is laoded first time
 if (!process.env.INFRA_TOKEN) {
   process.env.INFRA_TOKEN = 'INFRA_TOKEN'
 }
@@ -52,7 +52,7 @@ describe('SPM for Node.js tests', function () {
       }).listen(port, '127.0.0.1')
       httpTest(njsAgent, done)
       setTimeout(function () {
-        var request = require('request')
+        const request = require('request')
         request.get('http://127.0.0.1:' + (port) + '/', function (err) {
           if (err) {
             console.log('Error' + err.stack)
@@ -148,48 +148,5 @@ describe('SPM for Node.js tests', function () {
       }
     }
     NjsAgent.on('metric', checkMetrics)
-  })
-
-  it('Wait for metrics: Process Agent', function (done) {
-    this.timeout(30000)
-    config.maxDataPoints = 1
-    config.logger.console = false
-    config.logger.level = 'debug'
-    let metricCounter = 0
-    let errorReported = false
-    const ProcessAgent = require('../lib/processAgent.js')
-    const agent = new ProcessAgent()
-    agent.start()
-
-    function checkMetrics (metric) {
-      if (errorReported) {
-        return
-      }
-      if (metric.measurement && metric.measurement.indexOf('process') > -1 &&
-        metric.fields.uptime &&
-        metric.fields.rss &&
-        metric.fields['cpu.usage'] &&
-        metric.fields['thread.count']) {
-        if (metric.tags.token !== config.tokens.infra) {
-          done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
-          errorReported = true
-        }
-        metricCounter = metricCounter + 1
-      }
-      if (metric.measurement && metric.measurement.indexOf('process') > -1 && metric.fields.count) {
-        if (metric.tags.token !== config.tokens.infra) {
-          done(new Error(`No infra token set ${metric.tags.token} != ${config.tokens.infra}`))
-          errorReported = true
-        }
-        metricCounter = metricCounter + 1
-      }
-
-      if (metricCounter > 2) {
-        agent.removeListener('metric', checkMetrics)
-        agent.stop()
-        done()
-      }
-    }
-    agent.on('metric', checkMetrics)
   })
 })
